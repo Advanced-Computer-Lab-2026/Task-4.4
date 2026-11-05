@@ -3,3 +3,78 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* ===================== UX rescue: style-only pass ===================== */
+
+/* 1. LEGIBILITY: most text was 9-11px, pale grey on cream. Raise sizes and contrast. */
+:root{color:#1f262b}
+.kicker{font-size:11px;color:#9a5a24}
+.intro{font-size:14px;color:#5a564c}
+.ruleline{font-size:11px}
+.header-links button{font-size:14px;min-height:44px;padding:0 6px;color:#4a3f1f}
+.header-links button:hover{text-decoration:underline}
+.report-button{font-size:14px;min-height:44px}
+.report-button:hover{background:#000}
+.filterbox label{font-size:13px;color:#3d3c36}
+.filterbox input,.filterbox select{font-size:14px;min-height:44px;color:#1f262b}
+.filterbuttons button{font-size:13px;min-height:44px;padding:0 18px}
+.filterbuttons button:first-child{background:#ffd54a;border-color:#e8bb2a;font-weight:700}
+.side-message p{font-size:13px;color:#6d5430}
+.side-message button{font-size:13px;min-height:44px}
+.reset{font-size:12px;color:#6b685f;min-height:44px}
+.time-note{font-size:12px;color:#6b685f}
+.board-top h2 span{color:#7a6f57}
+.message{font-size:13px;color:#2f4a1c;align-items:center}
+.message button{font-size:16px;min-width:36px;min-height:36px}
+.empty-column{font-size:13px;color:#6b685f}
+
+/* 2. SCANNING: the three columns and their cards were tinted by position (random pastel + tilt),
+      which carried no meaning. Colour now follows the report status, and cards are straight. */
+.board-column:nth-child(1){--accent:#e9776a}
+.board-column:nth-child(2){--accent:#3f9d7e}
+.board-column:nth-child(3){--accent:#6f8fcf}
+.column-head{padding:12px 8px;border-bottom:3px solid var(--accent)}
+.column-head strong{font-size:14px;letter-spacing:.04em}
+.column-head small{font-size:12px;color:#6b685f}
+.col-count{font-size:14px;font-weight:700;background:#fff;border:1px solid #ddd6c4;border-radius:999px;min-width:30px;text-align:center;padding:2px 8px;color:#3d3c36}
+.sticky-list{gap:16px}
+.sticky,.sticky:nth-child(2n),.sticky:nth-child(3n){transform:none;background:#fff;border:1px solid #e4ded0;border-top:5px solid var(--accent);border-radius:8px;box-shadow:0 2px 6px #0000000f;padding:16px 18px}
+.sticky-top{font-size:11px;color:#6b5f43}
+.sticky-emoji{font-size:34px;margin:12px 0 6px}
+.sticky h3{font-size:17px;margin:8px 0}
+.sticky p{font-size:13px;line-height:1.55;color:#4f4c44}
+.sticky-bottom{font-size:12px;color:#5a5340;border-top:1px dashed #d8ceb4}
+.handover-note{font-size:12.5px;line-height:1.45;font-weight:600;color:#3b3a35;background:#fff3cf;border-left:4px solid #c98a1a;border-radius:4px;padding:9px 11px;margin:2px 0 12px}
+.handover-note::before{content:"i  ";display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#c98a1a;color:#fff;font:700 11px/16px serif;text-align:center;margin-right:6px}
+.menu{width:40px;height:40px;border-radius:50%;font-size:22px;line-height:1;color:#4d4d44}
+.menu:hover{background:#f0ece0}
+.menu-popup{min-width:210px;padding:6px}
+.menu-popup button{min-height:42px;font-size:14px;border-radius:4px}
+.menu-popup button:hover{background:#f6f2e4}
+.menu-popup span{display:block;font-size:13px;color:#5f5c54;padding:8px}
+@media(prefers-reduced-motion:no-preference){.sticky{transition:box-shadow .15s,transform .15s}.sticky:hover{box-shadow:0 6px 14px #00000019;transform:translateY(-2px)}}
+
+/* 3. FORM: error was easy to miss and inputs/labels were small. Stronger error banner, bigger
+      fields and buttons, visible keyboard focus everywhere. */
+.report-intro>p:not(.kicker){font-size:15px;color:#6b6252}
+.paper-note{font-size:14px;color:#6b6252}
+.form-paper header p{font-size:11px;color:#8c7650}
+.form-paper label{font-size:14px;color:#2f322f}
+.form-paper label b{color:#b3261e}
+.form-paper input,.form-paper select,.form-paper textarea{font-size:15px;min-height:46px;color:#1f262b;border-color:#b9b8ac}
+.form-paper textarea{min-height:140px}
+.form-paper input:hover,.form-paper select:hover,.form-paper textarea:hover{border-color:#8f8e82}
+.form-error{font-size:14px;font-weight:700;color:#8c1d18;background:#fdecea;border:1px solid #f0b8b1;border-left:6px solid #b3261e;border-radius:4px;padding:14px 16px;margin-bottom:18px}
+.form-error::before{content:"⚠ ";}
+.form-actions{gap:12px}
+.form-actions>button:first-child{font-size:14px;min-height:46px;padding:0 18px}
+.form-actions .report-button{min-height:46px;padding:0 24px}
+.crumbs{font-size:13px}.crumbs button{min-height:36px;font-size:13px}
+.pagefooter{font-size:12px;color:#6b685f}
+
+/* Keyboard focus was invisible on buttons, links and fields. */
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #1d5fd6;outline-offset:2px}
+.form-paper input:focus,.form-paper select:focus,.form-paper textarea:focus,.filterbox input:focus,.filterbox select:focus{border-color:#1d5fd6}
+
+/* Larger text needs more room: single column cards on phones/small tablets. */
+@media(max-width:750px){.board-grid{grid-template-columns:1fr}.column-head{margin-top:16px}.sticky{min-height:auto}}
