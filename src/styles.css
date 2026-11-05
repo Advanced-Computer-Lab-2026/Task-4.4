@@ -3,3 +3,97 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* ---------- UI/UX rescue additions ---------- */
+/* Header: active nav state + separate lost/found report buttons */
+.header-links button{padding:8px 10px;border-radius:20px}
+.header-links button:hover{background:#ffe896}
+.header-links button.active{background:#262c30;color:#fff}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.report-button.lost{background:#b3472f}
+.report-button.found{background:#2c7356}
+.report-button:hover{filter:brightness(1.12)}
+
+/* Filters */
+.board .filterbox{margin:0 0 22px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;padding:16px 18px}
+.board .filterbox label{margin:0;flex:1 1 160px}
+.board .filterbox label.grow{flex:2 1 240px}
+.filterbuttons{align-items:center;gap:12px;flex:0 0 auto;padding-bottom:4px}
+.result-count{margin:0;font-size:12px;color:#5f5b52}
+.filterbuttons button:first-child{background:#fff;border-color:#d6d5cd}
+.filterbuttons button:disabled{opacity:.45;cursor:default}
+
+/* How it works panel */
+.howto{margin-top:22px;background:#fff;border:1px solid #e2ded3;border-radius:9px;padding:16px 18px;font-size:12px;line-height:1.55;color:#3e3d38}
+.howto summary{font-weight:800;font-size:14px;cursor:pointer}
+.howto-block{margin-top:14px;padding:12px 12px 10px;border-radius:7px;border-left:4px solid}
+.howto-block.found{background:#eaf6ef;border-color:#2c7356}
+.howto-block.lost{background:#fdeeea;border-color:#b3472f}
+.howto-block ol{margin:8px 0;padding-left:18px}
+.howto-block ol li{margin-bottom:6px}
+.howto-block ul{list-style:none;padding:4px 0 0;margin:0}
+.howto-block ul li{font-weight:700;margin:2px 0}
+.howto-block button{background:transparent;border:0;padding:4px 0;font-weight:800;font-size:12px;color:#262c30;text-decoration:underline}
+
+
+/* Who-posted toggle buttons */
+.board-top{gap:16px;flex-wrap:wrap}
+.owner-toggle{display:flex;border:1px solid #cfcabd;border-radius:22px;padding:3px;background:#fff;gap:3px}
+.owner-toggle button{border:0;background:transparent;border-radius:18px;padding:7px 14px;font-size:12px;font-weight:700;color:#5f5a51}
+.owner-toggle button:hover{background:#f1eee5}
+.owner-toggle button.active{background:#262c30;color:#fff}
+.owner-toggle button.mine.active{color:#ffdb64}
+.owner-toggle button.others.active{background:#6d675c}
+
+/* Column heads coloured by status */
+.col-icon.lost{background:#f6b2a5}
+.column-head.lost{border-bottom:3px solid #b3472f}
+.column-head.found{border-bottom:3px solid #2c7356}
+.column-head.claimed{border-bottom:3px solid #4f6aa3}
+.column-head strong{font-size:14px}
+.column-head small{font-size:11px;color:#7d776c}
+.board-grid.cols-1{grid-template-columns:1fr}
+.board-grid.cols-1 .sticky-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.board-grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+/* Cards: colour by status (not by position), no tilt, clear ownership */
+.sticky,.sticky:nth-child(2n),.sticky:nth-child(3n){transform:none;border-left-width:5px}
+.sticky.lost{background:#fff6f3;border-color:#f1d6cf;border-left-color:#b3472f}
+.sticky.found{background:#f1f9f4;border-color:#d3e8db;border-left-color:#2c7356}
+.sticky.claimed{background:#f3f5fb;border-color:#dbe1ef;border-left-color:#4f6aa3}
+.sticky.mine{box-shadow:0 0 0 2px #262c30,3px 5px 0 #d8d0bc55}
+.sticky-top{align-items:center}
+.status-pill{padding:3px 8px;border-radius:12px;color:#fff;font-size:10px;letter-spacing:.08em}
+.status-pill.lost{background:#b3472f}
+.status-pill.found{background:#2c7356}
+.status-pill.claimed{background:#4f6aa3}
+.sticky-top .cat{color:#857a62}
+.badge-mine{display:inline-block;background:#262c30;color:#ffdb64;font-size:11px;font-weight:800;padding:3px 9px;border-radius:12px}
+.sticky .badge-mine,.owner-other{margin-top:10px}
+.owner-other{display:inline-block;font-size:11px;color:#6d675c}
+.sticky-emoji{font-size:32px;margin:10px 0 4px}
+.sticky p{font-size:12px;color:#5f5a51}
+.sticky-bottom{font-size:11px;color:#6f6450}
+
+/* Handover status: the key information for recovering an item */
+.handover-note{font-size:12px;font-weight:700;padding:8px 10px;border-radius:6px;margin:0 0 12px}
+.handover-note.held{background:#d9f0e2;color:#1f5a41}
+.handover-note.pending{background:#fff1c9;color:#7a5a00}
+.handover-note.done{background:#e1e7f5;color:#36507f}
+
+/* Owner actions on cards */
+.card-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid #0000000f}
+.card-actions button{border:1px solid #cfcabd;background:#fff;border-radius:4px;padding:6px 11px;font-size:12px;font-weight:700}
+.card-actions .danger-link{color:#a3321c;border-color:#e8c3b9}
+.card-actions.confirm span{font-size:12px;font-weight:700;color:#a3321c;width:100%}
+.card-actions .danger{background:#a3321c;border-color:#a3321c;color:#fff}
+
+/* Report form: lost / found choice + guidance */
+.guide-box{max-width:360px;margin-top:24px;background:#eaf6ef;border-left:4px solid #2c7356;border-radius:6px;padding:16px 18px;font-size:13px;line-height:1.55;color:#2f3a33}
+.guide-box.lost{background:#fdeeea;border-color:#b3472f;color:#4a302a}
+.guide-box strong{font-size:14px}
+.guide-box p{margin:8px 0}
+.guide-box ul{list-style:none;padding:0;margin:6px 0;font-weight:700}
+
+@media(max-width:1130px){.header{flex-wrap:wrap}.header-links{order:3;width:100%;margin:0;justify-content:flex-start}}
+@media(max-width:750px){.header-actions{width:100%}.header-actions .report-button{flex:1}.header-links{overflow-x:auto}.owner-toggle{width:100%}.owner-toggle button{flex:1;padding:7px 6px}.board-grid.cols-2,.board-grid.cols-3{grid-template-columns:1fr}}
