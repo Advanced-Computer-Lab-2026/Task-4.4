@@ -3,3 +3,46 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Clear navigation, filter, status-group, and destructive-action affordances. */
+.header-context{margin:auto;display:flex;flex-direction:column;align-items:center;gap:3px;color:#4f452c}
+.header-context strong{font:700 13px 'Space Grotesk',sans-serif}
+.header-context span{font-size:11px;color:#75663e}
+.filter-help{margin:-10px 0 18px;font-size:11px;line-height:1.5;color:#77746b}
+.filterbuttons{align-items:stretch}
+.filterbuttons button{min-height:42px;padding:10px 14px;font-weight:700}
+.reset-area{margin-top:22px}
+.reset{margin-top:0;min-height:36px}
+.reset-confirm{border:1px solid #dfb5aa;border-left:4px solid #b74b39;border-radius:7px;background:#fff8f6;padding:14px;color:#4f3b36}
+.reset-confirm strong{font-size:12px}
+.reset-confirm p{margin:7px 0 12px;font-size:10px;line-height:1.45;color:#765d56}
+.reset-confirm>div{display:flex;flex-wrap:wrap;gap:7px}
+.reset-confirm button{border:1px solid #d4cbc6;border-radius:4px;background:#fff;padding:8px 10px;font-size:10px;font-weight:700}
+.reset-confirm .confirm-reset{background:#a83d2e;border-color:#a83d2e;color:#fff}
+.column-head{align-items:flex-start;padding:12px 4px 13px;cursor:default}
+.status-marker{flex:0 0 5px;width:5px;height:39px;border-radius:4px;background:#db6e60}
+.status-marker.found{background:#40977b}
+.status-marker.claimed{background:#6686bd}
+.status-copy{display:flex;min-width:0;flex-direction:column;gap:2px}
+.column-head .status-copy strong{font-size:13px;text-transform:none}
+.column-head .status-copy span{font-size:9px;line-height:1.3;color:#8b867d}
+.column-head .col-count{padding-top:13px;white-space:nowrap;font-size:10px;color:#77736b}
+.board-column+.board-column{border-left:1px solid #d5cfc1;padding-left:17px}
+
+@media(max-width:1130px){
+ .board-column+.board-column{border-left:0;padding-left:0}
+ .board-column:nth-child(even){border-left:1px solid #d5cfc1;padding-left:17px}
+ .board-column:nth-child(3){border-top:1px solid #d5cfc1;padding-top:17px}
+}
+
+@media(max-width:750px){
+ .header-context{order:3;width:100%;align-items:flex-start;border-top:1px solid #d5b84e;padding-top:10px}
+ .header-context span{font-size:10px}
+ .filterbuttons{flex-wrap:wrap}
+ .filterbuttons button{flex:1;min-width:110px}
+}
+
+@media(max-width:475px){
+ .board-column:nth-child(even){border-left:0;padding-left:0}
+ .board-column+.board-column{border-top:1px solid #d5cfc1;padding-top:17px}
+}
