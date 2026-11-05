@@ -3,3 +3,48 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Filtered view: a single status uses the full board width instead of one narrow column beside two empty ones. */
+.header-links button.active{color:#262c30;box-shadow:inset 0 -2px 0 #262c30;padding-bottom:4px}
+.filtered-head{flex-wrap:wrap}
+.show-all{border:1px solid #d6d5cd;background:#fff;border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;color:#5c4f2c}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:17px;align-items:start}
+@media(max-width:475px){.card-grid{grid-template-columns:1fr}}
+
+/* Card actions: show the edit action directly for your own reports; otherwise say who posted it. */
+.card-edit{border:1px solid #262c30;background:#262c30;color:#fff;border-radius:4px;padding:4px 9px;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:none}
+.card-edit:hover,.card-edit:focus-visible{background:#fff;color:#262c30}
+.card-owner{text-transform:none;letter-spacing:0;font-weight:600;color:#a49a85;font-size:10px;text-align:right}
+
+/* Field-level validation: say exactly which field is wrong and how to fix it. */
+.form-paper [aria-invalid="true"]{border-color:#ba523e;background:#fffaf9}
+.field-error{font-size:11px;font-weight:600;color:#ba523e;line-height:1.4}
+.form-error strong{display:block;margin-bottom:6px}
+.form-error ul{margin:0;padding-left:18px}
+.form-error li+li{margin-top:3px}
+
+/* Filters apply live, so there is no Apply button; Clear is only active when something is filtered. */
+.filterbuttons button:first-child{background:#fff;border-color:#d6d5cd}
+.filterbuttons button:disabled{opacity:.45;cursor:default}
+
+/* Column headings are buttons that open the full-width view for that status. */
+.column-button{width:100%;font:inherit;color:inherit;text-align:left;background:#fff;border:1px solid #ded8c7;border-radius:8px;box-shadow:0 2px 0 #e6e0d2;transition:transform .12s,box-shadow .12s,border-color .12s}
+.column-button .col-text{display:block;min-width:0}
+.column-button .col-count{margin-left:auto;background:#f5f3ec;border-radius:999px;padding:2px 8px;font-weight:700;color:#6f6656}
+.col-cta{font-size:10px;font-weight:800;color:#5c4f2c;white-space:nowrap}
+.column-button:hover{border-color:#262c30;transform:translateY(-1px);box-shadow:0 4px 0 #d8d0bc}
+.column-button:hover .col-cta{text-decoration:underline}
+.column-button:active{transform:translateY(1px);box-shadow:0 1px 0 #d8d0bc}
+.column-button:focus-visible{outline:3px solid #262c30;outline-offset:2px}
+@media(max-width:1130px){.col-cta{display:none}}
+
+/* Uniform cards: every notice has the same height so rows line up and the board scans as a grid. */
+.sticky,.sticky:nth-child(n){display:flex;flex-direction:column;height:290px;min-height:0;overflow:hidden}
+.sticky h3{flex:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sticky p{flex:none;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;min-height:0}
+.handover-note{flex:none;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.sticky-emoji{flex:none}
+.sticky-bottom{flex:none;min-width:0}
+.card-location{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-grid{align-items:stretch}
+@media(max-width:475px){.sticky,.sticky:nth-child(n){height:290px;min-height:0}}
