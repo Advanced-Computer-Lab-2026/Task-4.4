@@ -46,18 +46,29 @@ See [DESIGN-NOTES.md](DESIGN-NOTES.md) for the pre-implementation comparison and
 | No-results recovery | [after-no-results.png](evidence/after-no-results.png) |
 | Duplicate report rejected | [after-duplicate-rejected.png](evidence/after-duplicate-rejected.png) |
 | Received versus reported found items | [after-receipt-states.png](evidence/after-receipt-states.png) |
-| Mobile layout, 390 pixels wide | [after-mobile.png](evidence/after-mobile.png) |
+| Mobile layout, 375 pixels wide | [after-mobile.png](evidence/after-mobile.png) |
+| Compact mobile filters and active chips | [after-mobile-active-filters.png](evidence/after-mobile-active-filters.png) |
+| Received-item editing guidance | [after-received-edit.png](evidence/after-received-edit.png) |
+| Reset confirmation | [after-reset-confirmation.png](evidence/after-reset-confirmation.png) |
+| Storage failure and retry | [after-storage-warning.png](evidence/after-storage-warning.png) |
 
 ## Validation results
 
-The production build and `git diff --check` passed. Twenty browser checks passed, including required-field feedback and focus, creating a report, unconfirmed new custody, persistence, combined filters, case-insensitive search and duplicate detection, retained failed entries, author-only editing, status changes, preserved receipt metadata, optional blank fields, demo reset, and mobile board/form widths. No uncaught browser errors were observed. The machine-readable check list is in [test-results.json](evidence/test-results.json).
+The production build and `git diff --check` passed. Forty-six browser checks passed, including required-field feedback and focus, title length, creating a report, unconfirmed new custody, persistence, combined filters, case-insensitive search and duplicate detection, retained failed entries, author-only editing, status changes, preserved receipt metadata, optional blank fields, confirmed demo reset, mobile filters, keyboard operation, browser-storage failure/retry, and responsive board/form widths. No uncaught browser errors were observed. The machine-readable check list is in [test-results.json](evidence/test-results.json).
 
-The browser checks were run with Playwright and Chrome at 1440 × 1000 and 390 × 844. Test records were removed using the application's Reset demo data action after evidence capture.
+The browser checks were run with Playwright and Chrome at widths of 375, 768, 1024 and 1440 pixels. Normal-path test records were removed using the application's confirmed Reset demo data action after evidence capture. Storage failures were simulated in a separate isolated test browser, without changing the user's browser storage.
+
+## Lecture follow-up
+
+All 34 supplied lecture pages were reviewed, including their visual examples. [LECTURE-REVIEW.md](LECTURE-REVIEW.md) maps all six concepts to the project and records the alternatives compared before the follow-up implementation. Changes add shared design tokens, mobile filter disclosure and removable filter chips, a short reset confirmation, recoverable storage errors, grouped form fields, mobile guidance and a full-width primary form action. The received-item edit hint now reflects the existing collection record.
+
+See [CHANGELOG.md](CHANGELOG.md) for the complete history from the starter and the visual comparisons in `evidence/comparison-*.png`. The lecture's travel and booking screens are examples; no travel features or simulated claim verification were added.
 
 ## Files changed
 
 - `src/App.jsx`: validation, filters, result feedback, contextual recovery instructions and author-only edit discovery.
 - `src/styles.css`: readable text, responsive layouts, receipt indicators and accessible field states.
 - `package.json` and `package-lock.json`: compatible official WebAssembly build-tool variants, because this environment blocks native compiler executable downloads. React and the Vite workflow are preserved.
+- `LECTURE-REVIEW.md` and `CHANGELOG.md`: lecture mapping, further design alternatives and the complete change history.
 
 The submission includes source, scripts, dependency lock file, screenshots, these justifications, the AI design comparison and check results. Dependencies and Git internals are excluded. GitHub submissions use a personal fork and a pull request to the course repository.
