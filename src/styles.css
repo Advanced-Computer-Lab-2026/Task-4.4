@@ -10,3 +10,8 @@
 .field-error button,.error-summary button{background:none;border:0;padding:0;color:#ba523e;font:inherit;text-decoration:underline;cursor:pointer;text-align:left}
 .error-summary{background:#fff0ee;color:#ba523e;border-left:3px solid #ba523e;padding:12px;margin-bottom:19px;font-size:12px}
 .error-summary ul{margin:6px 0 0;padding-left:18px}
+.sticky.mine{outline:2px solid #2b2b27;outline-offset:1px}
+.own-badge{background:#2b2b27;color:#fff;padding:2px 6px;border-radius:3px;letter-spacing:.06em}
+.edit-report{display:block;width:100%;margin-top:10px;border:1px solid #2b2b27;background:#fff;color:#2b2b27;border-radius:4px;padding:8px 10px;font-size:11px;font-weight:700;cursor:pointer}
+.edit-report:hover{background:#2b2b27;color:#fff}
+.filterbox label.check-row{flex-direction:row;align-items:center;gap:8px}
