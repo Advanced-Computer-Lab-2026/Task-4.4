@@ -3,3 +3,31 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Status tabs: LOST / FOUND / CLAIMED share one preview panel below them. */
+.status-tab.lost,.status-panel.lost{--accent:#d9604b;--tint:#fdeeeb}
+.status-tab.found,.status-panel.found{--accent:#3f9a7d;--tint:#eaf6f1}
+.status-tab.claimed,.status-panel.claimed{--accent:#5d78b8;--tint:#edf1f9}
+.status-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;position:relative;z-index:1}
+.status-tab{display:flex;align-items:center;gap:10px;min-width:0;padding:14px 12px;background:#ece8dd;color:#857f72;border:1px solid #ded8c7;border-bottom:0;border-radius:10px 10px 0 0;text-align:left;transition:background .15s,color .15s}
+.status-tab:hover{background:#f4f0e6;color:#252c32}
+.status-tab:focus-visible{outline:2px solid #262c30;outline-offset:2px}
+.status-tab .col-icon{flex:none;opacity:.55;transition:opacity .15s}
+.status-tab:hover .col-icon{opacity:.85}
+.tab-text{min-width:0}
+.tab-text strong{display:block;font-size:12px;letter-spacing:.04em}
+.tab-text small{display:block;color:#a5a098;font-size:9px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status-tab .col-count{flex:none;margin-left:auto;min-width:26px;padding:3px 8px;border-radius:999px;background:#e0dbce;color:#857f72;font-size:12px;font-weight:700;text-align:center}
+/* Active tab: same tint as the panel, coloured top stripe, full-colour icon and filled count badge, and it overlaps the panel border so the two read as one surface. */
+.status-tab.active{background:var(--tint);color:#252c32;border-color:var(--accent);box-shadow:inset 0 4px 0 var(--accent);margin-bottom:-2px;padding-bottom:16px}
+.status-tab.active .col-icon{opacity:1}
+.status-tab.active .tab-text strong{color:var(--accent)}
+.status-tab.active .col-count{background:var(--accent);color:#fff}
+.status-panel{background:var(--tint);border:2px solid var(--accent);border-radius:0 0 10px 10px;padding:20px}
+.panel-caption{margin:0 0 16px;font-size:11px;color:#7d776b}
+.panel-caption strong{color:var(--accent);text-transform:capitalize}
+.sticky-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;align-items:start}
+.status-panel .empty-column{background:#fff8}
+.link-button{border:0;background:none;padding:0;color:var(--accent);font-weight:700;text-decoration:underline;font-size:inherit}
+@media(max-width:750px){.status-tab{padding:12px 8px;gap:6px}.tab-text small{display:none}.status-panel{padding:14px}}
+@media(max-width:475px){.status-tab{flex-direction:column;align-items:center;text-align:center}.status-tab .col-count{margin-left:0}.status-tab.active{padding-bottom:14px}.sticky-grid{grid-template-columns:1fr}}
