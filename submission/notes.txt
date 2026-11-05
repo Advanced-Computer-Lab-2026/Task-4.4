@@ -64,6 +64,10 @@ Screenshots
    screenshots/after-possible-match.jpg: backpack search showing both Possible
       match buttons and the corresponding lost/found notices.
    screenshots/after-error-reason.jpg: the specific error from an empty submission.
+   The matching before-scrollbar.jpg, before-possible-match.jpg and
+   before-error-reason.jpg files were freshly captured from the unchanged main
+   branch at the same browser width and with the same report/search/form states.
+   These six final screenshots are committed only to codex/lost-found-usability.
    The screenshots below document the earlier left-scrollbar iteration.
    screenshots/before-board.jpg and screenshots/after-board.jpg: same default
       1280px-wide browser, showing the header and board before/after.
