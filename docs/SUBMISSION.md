@@ -33,6 +33,10 @@ Lost, Found and Claimed are now three stacked full-width sections, each with its
 - **Observed:** after posting, an active filter could hide the new report (it looked like the post failed), and with stacked sections the new card can be far down the page.
 - **Fix:** saving clears filters, scrolls to the card and highlights it for 4 seconds.
 
+## Header redesign
+- **Observed:** a yellow bar plus a separate dark strip of 10 px decorative text; nav links were plain 12 px text with no visible active state; nothing showed how much was in each view; the header scrolled away on a long page.
+- **Fix:** one compact bar (about 70 px). Nav items are 44 px pill tabs with a clear dark active state and live counts (Missing items 6, Recently found 7). It stays pinned on desktop; the "Jump to" scrolling accounts for it. On phones the tabs sit on their own full-width row and the header is not pinned, to save screen space. Added a "Skip to main content" link for keyboard users. The dark decorative strip was removed.
+
 ## Smaller fixes
 - "Reset demo data" now asks for confirmation (it silently wiped the user's reports).
 - Category/status options capitalised consistently in filters and form (values unchanged).
@@ -43,5 +47,5 @@ Lost, Found and Claimed are now three stacked full-width sections, each with its
 - **Rejected:** with the seed data, "black backpack" would also surface black calculators, USB drive and notebook (shared word "black"); that adds noise and implies the system verified a match, which conflicts with the rule that ownership is verified by staff. Refined to all-words matching plus a clear empty state. Limitation kept: "black backpack" does not find "Dark backpack" (different wording).
 - **Also rejected:** a "Claim this item" button on found cards — out of scope (README: no ownership-claim workflow).
 
-## Tests run (Playwright against the dev server, 77 checks, all passing)
+## Tests run (Playwright against the dev server, 99 checks, all passing)
 Section order/stacking/counts, jump links, unsaved-changes prompt (all entry points), highlight and filter clearing, 390 px layout. Search multi-word / case / zero results / clear / chips; status filter; header shortcuts; 3 own cards with Edit; handover notes for received, unconfirmed, collected; empty submit (3 errors, focus, aria); 1-char title; duplicate (case/whitespace-insensitive, clears on edit, edit collision blocked, edit of own report not a false duplicate); found/lost guidance; create → Found column + localStorage + persistence after reload; reset cancel/confirm; no console errors; `npm run build` succeeds; no horizontal scroll at 390 px.

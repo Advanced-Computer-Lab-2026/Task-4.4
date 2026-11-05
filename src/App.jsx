@@ -184,17 +184,20 @@ export default function App() {
  ];
 
  return <div className="notice-app">
+  <a className="skip-link" href="#main">Skip to main content</a>
   <header className="header">
-   <div className="headline"><span className="sun">✺</span><button onClick={goHome} className="wordmark">FOUND<span>on campus</span></button><p>Community noticeboard</p></div>
+   <button onClick={goHome} className="brand" aria-label="FOUND on campus, back to the noticeboard">
+    <span className="sun" aria-hidden="true">✺</span>
+    <span className="brand-text"><span className="brand-name">FOUND</span><span className="brand-sub">on campus</span></span>
+   </button>
    <nav className="header-links" aria-label="Noticeboard views">
-    <button onClick={goHome} aria-current={page === 'board' && !hasFilters ? 'page' : undefined}>Noticeboard</button>
-    <button onClick={() => showStatus('lost')} aria-current={page === 'board' && filterStatus === 'lost' ? 'page' : undefined}>Missing items</button>
-    <button onClick={() => showStatus('found')} aria-current={page === 'board' && filterStatus === 'found' ? 'page' : undefined}>Recently found</button>
+    <button className="nav-btn" onClick={goHome} aria-current={page === 'board' && filterStatus === 'all' ? 'page' : undefined}>Noticeboard</button>
+    <button className="nav-btn" onClick={() => showStatus('lost')} aria-current={page === 'board' && filterStatus === 'lost' ? 'page' : undefined}>Missing items <span className="nav-count">{items.filter(x => x.status === 'lost').length}</span></button>
+    <button className="nav-btn" onClick={() => showStatus('found')} aria-current={page === 'board' && filterStatus === 'found' ? 'page' : undefined}>Recently found <span className="nav-count">{items.filter(x => x.status === 'found').length}</span></button>
    </nav>
-   <button className="report-button" onClick={create}>+ Post a report</button>
+   <button className="report-button header-cta" onClick={create}>+ Post a report</button>
   </header>
-  <div className="ruleline"><span>SEARCH • DISCOVER • REUNITE</span><span>Helping lost things find their way back.</span></div>
-  {page === 'board' ? <main className="workspace">
+  {page === 'board' ? <main className="workspace" id="main" tabIndex={-1}>
    <aside className="filters">
     <p className="kicker">YOUR NOTICEBOARD</p>
     <h1>Lost something?<br /><em>You're in the right place.</em></h1>
@@ -255,7 +258,7 @@ export default function App() {
       </section>;
      })}</div>}
    </section>
-  </main> : <main className="report-page">
+  </main> : <main className="report-page" id="main" tabIndex={-1}>
    <div className="crumbs"><button onClick={() => navigate(() => setPage('board'))}>← Noticeboard</button><span>/</span><span>Report an item</span></div>
    {pendingNav && <div className="discard-confirm" role="alertdialog" aria-labelledby="discard-title" tabIndex={-1} ref={discardRef}>
     <strong id="discard-title">Discard your unsaved changes?</strong>
