@@ -3,3 +3,8 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Clear, single recovery state when active filters find no reports. */
+.board-grid.no-results .board-column{display:none}.empty-board{grid-column:1/-1;background:#fff;border:1px dashed #c9bea7;border-radius:8px;padding:28px;text-align:center;color:#58564f}.empty-board strong{font:700 18px 'Space Grotesk'}.empty-board p{margin:8px 0 16px;font-size:12px;color:#81796e}.empty-board button{background:#f7d66d;border:1px solid #e5c251;border-radius:4px;padding:9px 13px;font-size:12px;font-weight:700}
+/* Make the existing handover state easy to spot on found and claimed reports. */
+.handover-note{display:inline-block;border-radius:4px;padding:7px 9px;margin:2px 0 12px;font-size:11px;font-weight:700}.handover-note.received{background:#e2f1e4;color:#28613b}.handover-note.reported{background:#fff0ce;color:#75500d}.handover-note.released{background:#e7edf8;color:#3c527d}
