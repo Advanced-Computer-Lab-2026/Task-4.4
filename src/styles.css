@@ -3,3 +3,49 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* ---- Redesign: single dark header ---- */
+.header{background:#293036;border-bottom:0;justify-content:space-between;padding:18px 4%}
+.sun{color:#ffdb64}
+.wordmark{color:#ffdb64;cursor:pointer}
+.wordmark span{color:#ffdb64}
+.headline p.slogan{display:block;margin:0 0 0 22px;padding-left:22px;border-left:1px solid #4a525a;color:#e6e7df;font-size:10px;font-weight:700;letter-spacing:.11em}
+.header-actions{display:flex;gap:10px;flex-wrap:wrap}
+.report-button.lost{background:#ffdb64;color:#262c30}
+.report-button.found{background:transparent;color:#ffdb64;border:1px solid #ffdb64}
+
+/* ---- Status tabs (filter) ---- */
+.status-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.status-tab{display:flex;align-items:center;gap:8px;border:1px solid #ded8c7;background:#fff;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700;color:#4d504c;cursor:pointer}
+.status-tab span{background:#f1ede2;border-radius:999px;padding:1px 8px;font-size:11px;color:#6e675b}
+.status-tab.active{background:#293036;border-color:#293036;color:#fff}
+.status-tab.active span{background:#ffffff26;color:#fff}
+.status-tab.lost:not(.active){border-color:#f3c6bf}
+.status-tab.found:not(.active){border-color:#bfe0c9}
+.status-tab.claimed:not(.active){border-color:#d8ccf1}
+
+/* ---- One mixed grid, colour = status ---- */
+.board-grid{gap:16px}
+.board-grid .empty-column{grid-column:1/-1}
+.sticky.status-lost{background:#fde9e6;border-color:#f3c6bf}
+.sticky.status-found{background:#eaf6ee;border-color:#cde6d4}
+.sticky.status-claimed{background:#f1ecfd;border-color:#ddd2f3}
+.status-label{font-weight:800}
+.status-lost .status-label{color:#b2402f}
+.status-found .status-label{color:#2f7a4c}
+.status-claimed .status-label{color:#6a4fb0}
+
+/* ---- Report form: fixed status ---- */
+.status-fixed{display:flex;align-items:center;gap:12px;margin:0 0 19px}
+.field-label{font-size:12px;font-weight:700;color:#4d504c}
+.status-pill{border-radius:999px;padding:4px 12px;font-size:12px;font-weight:800}
+.status-pill.lost{background:#fde9e6;color:#b2402f}
+.status-pill.found{background:#eaf6ee;color:#2f7a4c}
+.side-message button{display:block}
+
+@media(max-width:750px){
+.header{flex-direction:column;align-items:flex-start}
+.headline p.slogan{display:none}
+.header-actions{width:100%}
+.header-actions .report-button{flex:1}
+}
