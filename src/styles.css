@@ -3,3 +3,18 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+.filter-hint{margin:-12px 0 16px;font-size:10px;line-height:1.5;color:#8c877d}
+.board-empty{min-height:290px;display:grid;align-content:center;justify-items:center;text-align:center;padding:40px 20px;background:#fff;border:1px dashed #d8d0ba;border-radius:8px;color:#81796e}
+.board-empty>span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff3d4;color:#bd7635;font-size:26px;margin-bottom:8px}
+.board-empty h3{margin:8px 0;font:700 19px 'Space Grotesk';color:#30353a}
+.board-empty p{max-width:380px;margin:0 0 16px;font-size:12px;line-height:1.6}
+.board-empty button{border:1px solid #d6d5cd;background:#f7d66d;border-radius:4px;padding:10px 13px;font-size:11px;font-weight:700}
+.filter-column{width:100%;text-align:left;color:inherit;background:transparent;border:0;border-bottom:1px solid #ded8c7;font:inherit;cursor:pointer;transition:background .15s,border-color .15s}
+.filter-column:hover,.filter-column.active{background:#fffaf0;border-bottom-color:#bd7635}
+.filter-column:focus-visible{outline:2px solid #bd7635;outline-offset:2px}
+.column-label{display:block}
+.sticky-top .status-pill{display:inline-flex;align-items:center;border-radius:20px;padding:5px 8px;font-size:9px;letter-spacing:.06em;color:#30353a;background:#ece9df}
+.sticky-top .status-lost{background:#ffe0dc;color:#913f35}
+.sticky-top .status-found{background:#d9f0e7;color:#28684f}
+.sticky-top .status-claimed{background:#e2e8f7;color:#435584}
+.sticky-top .item-category{margin-right:auto}
