@@ -3,3 +3,239 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+
+/* =========================================
+   FIX 1: TEXT VISIBILITY AND READABILITY
+========================================= */
+
+.sticky-top {
+  font-size: 11px;
+  color: #685b45;
+}
+
+.sticky h3 {
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.sticky p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #514d46;
+  min-height: 0;
+}
+
+.sticky-bottom {
+  font-size: 11px;
+  color: #595448;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sticky-bottom small {
+  font-size: 10px;
+  margin-left: auto;
+}
+
+.handover-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #514d46;
+}
+
+.column-head small {
+  font-size: 11px;
+  color: #68635b;
+}
+
+.time-note {
+  font-size: 12px;
+  color: #68635b;
+}
+
+.intro,
+.report-intro > p:not(.kicker) {
+  font-size: 13px;
+  color: #625d54;
+}
+
+/* =========================================
+   FIX 2: CONSISTENT STATUS COLORS
+========================================= */
+
+/* LOST - Soft coral */
+.board-column:nth-child(1) .sticky {
+  background: #fff0e8;
+  border-color: #e7c5b8;
+}
+
+/* FOUND - Soft green */
+.board-column:nth-child(2) .sticky {
+  background: #ecf6ee;
+  border-color: #bddbc5;
+}
+
+/* CLAIMED - Soft blue */
+.board-column:nth-child(3) .sticky {
+  background: #edf1fa;
+  border-color: #c4d0e8;
+}
+
+/* Remove random card rotations */
+.board-column .sticky {
+  transform: none;
+}
+
+/* =========================================
+   FIX 3: SPACING, PADDING AND LAYOUT
+========================================= */
+
+.workspace {
+  grid-template-columns: minmax(235px, 255px) minmax(0, 1fr);
+  gap: 26px;
+  padding: 36px 4%;
+}
+
+.board-grid {
+  gap: 20px;
+}
+
+.sticky-list {
+  gap: 16px;
+}
+
+.sticky {
+  display: flex;
+  flex-direction: column;
+  min-height: 235px;
+  padding: 20px 18px;
+}
+
+.sticky-emoji {
+  margin: 12px 0;
+}
+
+.sticky-bottom {
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.filterbox {
+  padding: 22px;
+}
+
+.filterbox label {
+  font-size: 12px;
+}
+
+.filterbox input,
+.filterbox select {
+  font-size: 13px;
+}
+
+.report-layout {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.report-intro {
+  padding-top: 20px;
+}
+
+.form-paper {
+  padding: 28px;
+}
+
+/* =========================================
+   FIX 4: REQUIRED ASTERISKS
+========================================= */
+
+/* Keep label text and * on the same line */
+.form-paper label {
+  display: block;
+  margin-bottom: 19px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.form-paper label b {
+  display: inline;
+  margin-left: 2px;
+  color: #b45c37;
+}
+
+/* Keep input fields underneath their labels */
+.form-paper label > input,
+.form-paper label > select,
+.form-paper label > textarea {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* =========================================
+   RESPONSIVE LAYOUT
+========================================= */
+
+@media (max-width: 1130px) {
+  .workspace {
+    grid-template-columns: minmax(220px, 245px) minmax(0, 1fr);
+  }
+
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 750px) {
+  .workspace {
+    display: block;
+    padding: 20px;
+  }
+
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .report-layout {
+    display: block;
+    margin-top: 22px;
+  }
+
+  .form-paper {
+    margin-top: 25px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 475px) {
+  .board-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sticky {
+    min-height: 0;
+  }
+}
+
+/* Make all notice cards equal in size */
+.board-column .sticky {
+  height: 330px;
+  min-height: 330px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Keep location and date at the bottom */
+.sticky-bottom {
+  margin-top: auto;
+}
+
+/* Keep equal spacing between cards */
+.sticky-list {
+  gap: 16px;
+}
