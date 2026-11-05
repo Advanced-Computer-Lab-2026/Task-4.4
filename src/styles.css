@@ -6,3 +6,7 @@
 
 .form-paper input.invalid,.form-paper select.invalid{border-color:#ba523e;background:#fff7f5}
 .field-error{color:#a33d2a;font-size:14px;font-weight:600;line-height:1.4}
+
+.sticky.mine{cursor:grab;border-left:4px solid #c17d45}.sticky.mine:active{cursor:grabbing}.sticky.dragging{opacity:.45}
+.board-column{border-radius:8px;transition:background .15s,outline-color .15s;outline:2px dashed transparent;outline-offset:2px}
+.board-column.drop-target{background:#fff3c4;outline-color:#c17d45}
