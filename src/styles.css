@@ -3,3 +3,80 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* ---- UI/UX rescue additions ---- */
+/* Navigation: show which board view is active */
+.header-links button{padding:6px 2px;border-bottom:2px solid transparent}
+.header-links button[aria-current="page"]{color:#262c30;border-bottom-color:#262c30}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid #2f6fb3;outline-offset:2px}
+/* Filters: live result count replaces the no-op Apply button */
+.filterbox label.check{flex-direction:row;align-items:center;gap:8px;font-weight:600}
+.filterbox label.check input{width:16px;height:16px;padding:0}
+.filterbuttons{align-items:center;justify-content:space-between}
+.result-count{margin:0;font-size:11px;color:#67665e}
+.filterbuttons button{background:#fff!important;border-color:#d6d5cd!important}
+.filterbuttons button:disabled{opacity:.45;cursor:default}
+.side-message ol{margin:0 0 12px;padding-left:18px;font-size:11px;line-height:1.55;color:#6d5631}
+.side-message li{margin-bottom:7px}
+.side-message .points{font-size:10px;font-weight:700;color:#8e7047;margin:0 0 6px}
+/* Single-status view uses the full width instead of showing empty columns */
+.board-grid.single{grid-template-columns:1fr}
+.board-grid.single .sticky-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.empty-column button{display:block;margin:10px auto 0;border:1px solid #d6d5cd;background:#fff;border-radius:4px;padding:7px 10px;font-size:11px}
+/* Ownership is visible on the card itself */
+.sticky{display:flex;flex-direction:column}
+.sticky.mine{border:2px solid #262c30;box-shadow:3px 5px 0 #262c3033}
+.mine-tag{background:#262c30;color:#fff;border-radius:3px;padding:3px 6px;letter-spacing:.06em}
+.edit-button{margin-top:12px;align-self:flex-start;border:1px solid #262c30;background:#fff;color:#262c30;border-radius:4px;padding:8px 12px;font-size:11px;font-weight:800}
+.edit-button:hover{background:#262c30;color:#fff}
+/* Handover state: where the item is and what to do next */
+.handover{display:flex;flex-direction:column;gap:3px;font-size:10px;line-height:1.45;border-radius:4px;padding:8px 9px;margin:0 0 12px;border:1px solid}
+.handover strong{font-size:11px}
+.handover.held{background:#e5f4ec;border-color:#9fd0b5;color:#245c3d}
+.handover.pending{background:#fff3e2;border-color:#efc58a;color:#7a4d12}
+.handover.done{background:#eaf0fb;border-color:#bccbea;color:#34507f}
+.match-link{align-self:flex-start;margin:0 0 12px;border:1px solid #c9b98d;background:#fff;border-radius:999px;padding:6px 11px;font-size:11px;font-weight:700;color:#5c4f2c}
+.match-link:hover{background:#ffdb64}
+.match-banner{display:flex;justify-content:space-between;align-items:center;gap:16px;background:#fff;border:1px solid #e2ded3;border-left:4px solid #bd7635;border-radius:6px;padding:14px 16px;margin-bottom:18px}
+.match-banner p{margin:4px 0 0;font-size:11px;color:#6f695f}
+.match-banner button{border:1px solid #262c30;background:#262c30;color:#fff;border-radius:4px;padding:9px 12px;font-size:11px;font-weight:700;white-space:nowrap}
+/* Form */
+.status-group{border:0;padding:0;margin:0 0 19px}
+.status-group legend{font-size:12px;font-weight:700;color:#4d504c;margin-bottom:8px}
+.status-group legend b{color:#b0704b}
+.status-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.form-paper .status-option{flex-direction:row;align-items:flex-start;gap:8px;margin:0;border:1px solid #d7d7cd;border-radius:4px;padding:10px;cursor:pointer;font-weight:400}
+.status-option input{margin-top:2px}
+.status-option strong{display:block;font-size:12px}
+.status-option small{display:block;font-size:10px;color:#8b867a;margin-top:2px}
+.status-option.selected{border-color:#262c30;background:#fffbea}
+.status-group.invalid .status-option{border-color:#ba523e}
+.form-paper .optional{font-weight:400;color:#9a958a;font-size:11px}
+.form-paper [aria-invalid="true"]{border-color:#ba523e;background:#fff8f6}
+.field-error{color:#ba523e;font-size:11px;font-weight:600;display:block;margin-top:2px}
+.form-error ul{margin:6px 0 0;padding-left:18px}
+.form-error a{color:#ba523e}
+.dup-help{margin:-8px 0 19px;font-size:11px;color:#6f695f;background:#faf7ee;border:1px dashed #d8cdb0;padding:10px;border-radius:4px}
+.dup-help button{border:0;background:none;text-decoration:underline;font-weight:700;color:#262c30;padding:0;font-size:11px}
+.guide{border-radius:5px;padding:13px 14px;margin:0 0 19px;font-size:11px;line-height:1.55}
+.guide p{margin:4px 0 0}
+.found-guide{background:#e5f4ec;border:1px solid #9fd0b5;color:#245c3d}
+.match-guide{background:#fffbea;border:1px solid #e7d290;color:#5c4f2c}
+.match-list{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.match-list li{display:flex;gap:10px;background:#fff;border:1px solid #eee3c0;border-radius:4px;padding:8px}
+.match-list strong{display:block;font-size:12px}
+.match-list small{display:block;color:#8b867a;margin-bottom:6px}
+.match-list .handover{margin:0}
+.match-emoji{font-size:24px}
+@media(max-width:750px){.status-options{grid-template-columns:1fr}.match-banner{flex-direction:column;align-items:flex-start}.board-grid.single .sticky-list{grid-template-columns:1fr 1fr}}
+.label-text{display:block}
+
+/* Card color = report status (same colors as the column icons); no decorative rotation */
+.sticky,.sticky:nth-child(2n),.sticky:nth-child(3n){transform:none;background:#fff;border:1px solid #e2ded3;border-top:5px solid #f9b0a6}
+.sticky.s-lost{background:#fff6f4;border-color:#f3d3cd;border-top-color:#f08a7c}
+.sticky.s-found{background:#f1faf5;border-color:#cfe6da;border-top-color:#5fb592}
+.sticky.s-claimed{background:#f2f6fd;border-color:#d3def2;border-top-color:#7f9fd6}
+.sticky.mine{border:2px solid #262c30;border-top-width:5px}
+.sticky.s-lost.mine{border-top-color:#f08a7c}.sticky.s-found.mine{border-top-color:#5fb592}.sticky.s-claimed.mine{border-top-color:#7f9fd6}
+.col-icon{background:#f08a7c;color:#fff}.col-icon.found{background:#5fb592}.col-icon.claimed{background:#7f9fd6}
+.handover{background:#fff}
