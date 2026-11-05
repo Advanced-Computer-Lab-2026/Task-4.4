@@ -3,3 +3,66 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Category and report-status labels on notice cards */
+.sticky-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.sticky-category {
+  color: #8b7959;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.sticky-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.sticky-status.lost {
+  background: #fbe0dc;
+  color: #9e4037;
+}
+
+.sticky-status.found {
+  background: #dcefe6;
+  color: #286b52;
+}
+
+.sticky-status.claimed {
+  background: #e3e9f7;
+  color: #435d91;
+}
+
+.column-head {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.column-head:hover,
+.column-head.active {
+  background: #eae6dc;
+  border-radius: 6px;
+}
+
+.column-head:focus-visible {
+  outline: 2px solid #8b6b2d;
+  outline-offset: 2px;
+}
