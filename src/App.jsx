@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 const STORE = 'acl-foundboard-v3';
 // Fictional campus locations for this standalone teaching demo.
@@ -75,6 +75,10 @@ export default function App() {
  const [errors, setErrors] = useState({});
  const [message, setMessage] = useState('');
  const [confirmReset, setConfirmReset] = useState(false);
+ const [initialForm, setInitialForm] = useState(clean);
+ const [pendingNav, setPendingNav] = useState(null);
+ const [highlightId, setHighlightId] = useState(null);
+ const discardRef = useRef(null);
  useEffect(() => localStorage.setItem(STORE, JSON.stringify(items)), [items]);
 
  // Every word the user types must appear somewhere in the title, location or description,
@@ -88,16 +92,37 @@ export default function App() {
  }), [items, terms, cat, filterStatus]);
  const hasFilters = terms.length > 0 || cat !== 'all' || filterStatus !== 'all';
 
+ // True when the form page holds input that differs from what it was opened with.
+ const dirty = page === 'form' && Object.keys(clean).some(k => form[k] !== initialForm[k]);
+ // Leaving the form with unsaved input asks first instead of silently discarding it.
+ function navigate(action) {
+  if (dirty) { setPendingNav({ run: action }); return; }
+  action();
+ }
+ useEffect(() => { if (pendingNav) discardRef.current?.focus(); }, [pendingNav]);
+ // After posting or saving, scroll to the report and highlight it briefly.
+ useEffect(() => {
+  if (!highlightId) return;
+  if (page !== 'board') { setHighlightId(null); return; }
+  document.getElementById(`card-${highlightId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const t = setTimeout(() => setHighlightId(null), 4000);
+  return () => clearTimeout(t);
+ }, [page, highlightId]);
+
  function clearFilters() { setQ(''); setCat('all'); setFilterStatus('all'); }
- function goHome() { clearFilters(); setPage('board'); }
- function create() { setCurrent(null); setForm({ ...clean }); setErrors({}); setPage('form'); }
+ function goHome() { navigate(() => { clearFilters(); setPage('board'); }); }
+ function showStatus(status) { navigate(() => { setFilterStatus(status); setPage('board'); }); }
+ function create() { navigate(() => { setCurrent(null); setForm({ ...clean }); setInitialForm({ ...clean }); setErrors({}); setPage('form'); }); }
  function edit(row) {
   if (row.owner !== 'you') return;
+  const f = { title: row.title, category: row.category, status: row.status, location: row.location, description: row.description };
   setCurrent(row.id);
-  setForm({ title: row.title, category: row.category, status: row.status, location: row.location, description: row.description });
+  setForm(f);
+  setInitialForm(f);
   setErrors({});
   setPage('form');
  }
+ function jumpTo(key) { document.getElementById(`section-${key}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
  function setField(name, value) {
   setForm(s => ({ ...s, [name]: value }));
   setErrors(er => {
@@ -120,13 +145,20 @@ export default function App() {
   }
   setErrors({});
   const d = { ...form, title: form.title.trim(), location: form.location.trim(), description: form.description.trim(), owner: 'you', created: 'Today', emoji: current ? items.find(x => x.id === current)?.emoji : '📌', ...(current ? {} : { collectionPoint: '', handoverStatus: 'reported' }) };
+  let savedId;
   if (current) {
+   savedId = current;
    setItems(items.map(x => x.id === current ? { ...x, ...d } : x));
    setMessage('Report updated.');
   } else {
-   setItems([{ id: `f-${Date.now()}`, ...d }, ...items]);
+   savedId = `f-${Date.now()}`;
+   setItems([{ id: savedId, ...d }, ...items]);
    setMessage('Your report has been posted.');
   }
+  // Clear filters so the saved report cannot be hidden by them, then point the user at it.
+  clearFilters();
+  setHighlightId(savedId);
+  setPendingNav(null);
   setPage('board');
   setCurrent(null);
  }
@@ -156,8 +188,8 @@ export default function App() {
    <div className="headline"><span className="sun">✺</span><button onClick={goHome} className="wordmark">FOUND<span>on campus</span></button><p>Community noticeboard</p></div>
    <nav className="header-links" aria-label="Noticeboard views">
     <button onClick={goHome} aria-current={page === 'board' && !hasFilters ? 'page' : undefined}>Noticeboard</button>
-    <button onClick={() => { setFilterStatus('lost'); setPage('board'); }} aria-current={page === 'board' && filterStatus === 'lost' ? 'page' : undefined}>Missing items</button>
-    <button onClick={() => { setFilterStatus('found'); setPage('board'); }} aria-current={page === 'board' && filterStatus === 'found' ? 'page' : undefined}>Recently found</button>
+    <button onClick={() => showStatus('lost')} aria-current={page === 'board' && filterStatus === 'lost' ? 'page' : undefined}>Missing items</button>
+    <button onClick={() => showStatus('found')} aria-current={page === 'board' && filterStatus === 'found' ? 'page' : undefined}>Recently found</button>
    </nav>
    <button className="report-button" onClick={create}>+ Post a report</button>
   </header>
@@ -193,6 +225,10 @@ export default function App() {
       {cat !== 'all' && <li><button onClick={() => setCat('all')} aria-label={`Remove category ${cat}`}>Category: {cap(cat)} ✕</button></li>}
       {filterStatus !== 'all' && <li><button onClick={() => setFilterStatus('all')} aria-label={`Remove status ${filterStatus}`}>Status: {cap(filterStatus)} ✕</button></li>}
      </ul>}
+     {filtered.length > 0 && <nav className="section-jump" aria-label="Jump to section">
+      <span>Jump to:</span>
+      {columns.map(col => <button key={col.key} onClick={() => jumpTo(col.key)}>{cap(col.key)} ({filtered.filter(r => r.status === col.key).length})</button>)}
+     </nav>}
     </div>
     {filtered.length === 0
      ? <div className="no-results">
@@ -200,15 +236,15 @@ export default function App() {
        <p>Try fewer or different words, or remove a filter. If it isn't listed yet, post a report so others can find it.</p>
        <div><button onClick={clearFilters}>Clear filters</button><button className="report-button" onClick={create}>+ Post a report</button></div>
       </div>
-     : <div className="board-grid">{columns.map(col => {
+     : <div className="board-sections">{columns.map(col => {
       const colItems = filtered.filter(r => r.status === col.key);
-      return <div className="board-column" key={col.key}>
-       <div className="column-head"><span className={'col-icon ' + col.key}>{col.icon}</span><div><strong>{col.title}</strong><small>{col.sub}</small></div><span className="col-count">{colItems.length}</span></div>
+      return <section className="board-section" id={`section-${col.key}`} aria-labelledby={`heading-${col.key}`} key={col.key}>
+       <div className="column-head"><span className={'col-icon ' + col.key} aria-hidden="true">{col.icon}</span><div><h3 id={`heading-${col.key}`}>{col.title}</h3><small>{col.sub}</small></div><span className="col-count">{colItems.length}</span></div>
        <div className="sticky-list">
-        {colItems.map(item => <article className="sticky" key={item.id}>
+        {colItems.map(item => <article className={'sticky' + (item.id === highlightId ? ' highlight' : '')} id={`card-${item.id}`} key={item.id}>
          <div className="sticky-top"><span>{item.category}</span>{item.owner === 'you' && <span className="own-tag">Your report</span>}</div>
          <div className="sticky-emoji" aria-hidden="true">{item.emoji}</div>
-         <h3>{item.title}</h3>
+         <h4>{item.title}</h4>
          <p>{item.description || 'No additional description.'}</p>
          <Handover item={item} />
          {item.owner === 'you' && <button className="edit-button" onClick={() => edit(item)} aria-label={`Edit your report: ${item.title}`}>Edit report</button>}
@@ -216,11 +252,16 @@ export default function App() {
         </article>)}
         {colItems.length === 0 && <div className="empty-column">{hasFilters ? 'No matching reports' : 'Nothing here yet'}</div>}
        </div>
-      </div>;
+      </section>;
      })}</div>}
    </section>
   </main> : <main className="report-page">
-   <div className="crumbs"><button onClick={() => setPage('board')}>← Noticeboard</button><span>/</span><span>Report an item</span></div>
+   <div className="crumbs"><button onClick={() => navigate(() => setPage('board'))}>← Noticeboard</button><span>/</span><span>Report an item</span></div>
+   {pendingNav && <div className="discard-confirm" role="alertdialog" aria-labelledby="discard-title" tabIndex={-1} ref={discardRef}>
+    <strong id="discard-title">Discard your unsaved changes?</strong>
+    <p>What you typed in this form will be lost.</p>
+    <div><button onClick={() => setPendingNav(null)}>Keep editing</button><button onClick={() => { const { run } = pendingNav; setPendingNav(null); run(); }}>Discard changes</button></div>
+   </div>}
    <div className="report-layout">
     <div className="report-intro"><span className="seal">✺</span><p className="kicker">HELP THE COMMUNITY</p><h1>{current ? 'Update your report' : 'Tell us what happened.'}</h1><p>Small details can help someone recognize their belongings.</p><div className="paper-note">Your report will appear on the public campus noticeboard with the details you provide.</div></div>
     <section className="form-paper">
@@ -243,7 +284,7 @@ export default function App() {
       </div>}
       {form.status === 'lost' && <div className="status-help" role="note">
        <strong>Lost something?</strong>
-       <p>Before posting, search the Found column for a match. If one fits, go to its collection point: staff verify ownership before releasing the item.</p>
+       <p>Before posting, search the Found section for a match. If one fits, go to its collection point: staff verify ownership before releasing the item.</p>
       </div>}
       {form.status === 'claimed' && <div className="status-help" role="note">
        <p>Use Claimed once the owner has collected the item.</p>
@@ -257,7 +298,7 @@ export default function App() {
        {errors.duplicate && <span className="field-error" id="err-duplicate">{errors.duplicate}</span>}
       </label>
       <label>More details<textarea rows="6" value={form.description} onChange={e => setField('description', e.target.value)} placeholder="Describe your item" /></label>
-      <div className="form-actions"><button type="button" onClick={() => setPage('board')}>Go back</button><button className="report-button" type="submit">{current ? 'Save report' : 'Publish notice'}</button></div>
+      <div className="form-actions"><button type="button" onClick={() => navigate(() => setPage('board'))}>Go back</button><button className="report-button" type="submit">{current ? 'Save report' : 'Publish notice'}</button></div>
      </form>
     </section>
    </div>
