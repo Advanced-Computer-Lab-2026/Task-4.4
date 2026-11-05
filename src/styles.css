@@ -3,3 +3,162 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* ==========================================================================
+   UX rescue additions (readable block; overrides the minified rules above)
+   ========================================================================== */
+
+/* ---- Accessibility basics ---- */
+:focus-visible { outline: 3px solid #1f5fbf; outline-offset: 2px; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---- Readable sizes and contrast (content >= 12px, subtitles >= 11px, >= 4.5:1) ---- */
+.kicker { font-size: 11px; color: #94541f; }
+.intro { color: #5f5b53; }
+.filterbox label { font-size: 12px; color: #4f4e48; }
+.filterbox input, .filterbox select { color: #333; }
+.side-message p { font-size: 12px; color: #6b5230; }
+.reset { font-size: 12px; color: #5f5a52; }
+.board-top h2 span { color: #74684f; }
+.time-note { font-size: 12px; color: #6a6253; }
+.column-head small { font-size: 11px; color: #625e57; }
+.col-count { color: #625e57; }
+.sticky-top { font-size: 11px; color: #6b5a35; align-items: center; }
+.sticky p { font-size: 12px; color: #5c554b; }
+.sticky-bottom { font-size: 12px; color: #65583f; }
+.empty-column { font-size: 12px; color: #6a5e4c; }
+.message { font-size: 13px; color: #3d5429; align-items: center; gap: 10px; }
+.message button { font-size: 14px; color: #3d5429; padding: 2px 6px; }
+.crumbs { font-size: 12px; color: #6a6252; }
+.crumbs button { font-size: 12px; color: #4f4b41; }
+.report-intro > p:not(.kicker) { color: #5f574a; }
+.paper-note { color: #625a48; }
+.form-paper header p { font-size: 11px; color: #75603c; }
+.pagefooter { font-size: 12px; color: #625d55; }
+.pagefooter span:first-child { color: #57544c; }
+
+/* ---- Header navigation (active state) ---- */
+.header-links button { padding: 6px 4px; border-bottom: 2px solid transparent; }
+.header-links button:hover { color: #262c30; }
+.header-links button.active { color: #262c30; border-bottom-color: #262c30; }
+
+/* ---- Sidebar filters ---- */
+.filterbox label.checkbox-row { flex-direction: row; align-items: center; gap: 9px; font-weight: 600; }
+.filterbox label.checkbox-row input { width: 17px; height: 17px; margin: 0; padding: 0; accent-color: #262c30; }
+.filterbuttons button { font-size: 12px; }
+.filterbuttons button:first-child { background: #fff; border-color: #bdb9ad; }
+
+/* ---- How recovery works ---- */
+.recovery {
+  margin-top: 22px; background: #fff; border: 1px solid #e2ded3; border-radius: 9px;
+  padding: 19px 21px; font-size: 12px; line-height: 1.55; color: #3f423f;
+}
+.recovery h3 { margin: 0 0 10px; font-size: 15px; }
+.recovery ol { margin: 0 0 12px; padding-left: 20px; }
+.recovery ol li { margin-bottom: 5px; }
+.recovery-points { margin: 0 0 5px; font-weight: 800; font-size: 12px; }
+.recovery ul { margin: 0; padding-left: 18px; }
+
+/* ---- Result summary and filter chips ---- */
+.results-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: -8px 0 18px; }
+.results-summary { margin: 0; font-size: 13px; font-weight: 700; color: #3f423f; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; border: 1px solid #c9c3b2; background: #fff;
+  border-radius: 999px; padding: 6px 11px; font-size: 12px; color: #2f3336;
+}
+.chip:hover { background: #fff6d6; border-color: #b9a464; }
+.chip-clear { border: 0; background: none; text-decoration: underline; font-size: 12px; color: #4f4b41; padding: 6px 4px; }
+
+/* ---- Board-level empty state ---- */
+.empty-board {
+  border: 1px dashed #c9bf9f; background: #fffdf4; border-radius: 8px;
+  padding: 22px; margin-bottom: 20px; text-align: center; font-size: 13px; color: #4f4b41;
+}
+.empty-board p { margin: 0 0 8px; }
+.empty-board-title { font: 700 18px 'Space Grotesk', sans-serif; color: #252c32; }
+.empty-board-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.empty-board-actions > button:first-child {
+  border: 1px solid #bdb9ad; background: #fff; border-radius: 5px; padding: 11px 15px; font-size: 12px; font-weight: 700;
+}
+
+/* ---- Cards: ownership, actions, highlight ---- */
+.sticky { display: flex; flex-direction: column; }
+.sticky.own { outline: 2px solid #c9a646; outline-offset: -2px; }
+.sticky.own:focus-visible { outline: 3px solid #1f5fbf; outline-offset: 2px; }
+.own-tag {
+  background: #262c30; color: #fff; border-radius: 3px; padding: 3px 7px;
+  font-size: 11px; letter-spacing: .04em; text-transform: none; font-weight: 700; white-space: nowrap;
+}
+.card-actions { margin-top: 12px; display: flex; justify-content: flex-end; }
+.edit-button {
+  border: 1px solid #262c30; background: #fff; color: #262c30; border-radius: 4px;
+  padding: 7px 12px; font-size: 12px; font-weight: 800;
+}
+.edit-button:hover { background: #262c30; color: #fff; }
+.posted-by { font-size: 12px; color: #625e57; }
+.sticky.just-saved { animation: just-saved 3.5s ease-out; }
+@keyframes just-saved {
+  0%, 40% { box-shadow: 0 0 0 4px #f2b632, 3px 5px 0 #d8d0bc55; }
+  100% { box-shadow: 0 0 0 0 transparent, 3px 5px 0 #d8d0bc55; }
+}
+
+/* ---- Custody badge (replaces .handover-note) ---- */
+.custody {
+  display: flex; gap: 8px; align-items: flex-start; margin: 0 0 12px; padding: 9px 10px;
+  border-radius: 5px; font-size: 12px; line-height: 1.45; border: 1px solid transparent;
+}
+.custody-icon {
+  flex: none; width: 19px; height: 19px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 12px; color: #fff;
+}
+.custody-label { display: block; font-weight: 800; }
+.custody-next { display: block; margin-top: 3px; font-weight: 400; }
+.custody-held { background: #e3f2ea; border-color: #9fcfb3; color: #1d4f33; }
+.custody-held .custody-icon { background: #2c7a4f; }
+.custody-reported { background: #fff5dc; border: 1px dashed #b07d12; color: #5f4300; }
+.custody-reported .custody-icon { background: #9a6a00; }
+.custody-released { background: #eeece7; border-color: #d3cfc5; color: #48453f; }
+.custody-released .custody-icon { background: #6b675f; }
+
+/* ---- Report form ---- */
+.form-paper .field { display: flex; flex-direction: column; gap: 6px; margin: 0 0 19px; }
+.form-paper .field label { margin: 0; }
+.field-hint { margin: 0; font-size: 12px; color: #5f5b53; line-height: 1.45; }
+.required-note { margin: 0 0 18px; font-size: 12px; color: #5f5b53; }
+.required-note b { color: #b0704b; }
+.field.has-error input, .field.has-error select { border: 2px solid #ba523e; }
+.field-error { margin: 0; font-size: 12px; font-weight: 700; color: #ba523e; }
+.found-hint {
+  margin: 4px 0 0; padding: 10px 12px; background: #fff5dc; border-left: 3px solid #b07d12;
+  font-size: 12px; line-height: 1.5; color: #5f4300;
+}
+.form-error { color: #9c3f2d; margin-bottom: 20px; }
+.form-error h3 { margin: 0 0 6px; font-size: 13px; }
+.form-error ul { margin: 0; padding-left: 18px; }
+.form-error button {
+  border: 0; background: none; padding: 2px 0; color: #9c3f2d; text-decoration: underline;
+  font-size: 12px; text-align: left;
+}
+
+/* ---- Small screens ---- */
+@media (max-width: 750px) {
+  .header-links button { font-size: 12px; }
+  .results-bar { margin-top: 0; }
+}
+@media (max-width: 475px) {
+  .header-links { gap: 4px; }
+  .header-links button { font-size: 12px; padding: 6px 2px; }
+  .board-top { flex-wrap: wrap; gap: 6px; }
+  .form-actions { flex-wrap: wrap; }
+  .form-actions > button { flex: 1 1 auto; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .sticky, .sticky:nth-child(2n), .sticky:nth-child(3n) { transform: none; }
+  .sticky.just-saved { animation: none; box-shadow: 0 0 0 4px #f2b632; }
+}
