@@ -3,3 +3,10 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* UX rescue improvements: live filters, clear validation, and handover state. */
+.live-hint{font-size:10px;font-weight:500;color:#8e887d}.live-count{align-self:center;font-size:10px;color:#777267;margin-right:auto}.filterbuttons button{white-space:nowrap}.form-paper input[aria-invalid="true"],.form-paper select[aria-invalid="true"]{border-color:#ba523e;background:#fffafa}.field-error{font-size:11px;line-height:1.45;color:#a64032;font-weight:600}.form-error{margin-top:0}.handover-note{display:flex;align-items:center;gap:7px;border-radius:4px;padding:8px 9px;margin:0 0 12px;font-size:10px;font-weight:700}.handover-note span{font-size:9px}.handover-note.received{background:#e5f3e9;color:#38664a}.handover-note.reported{background:#fff1d7;color:#825d22}.handover-note.released{background:#e9edf8;color:#4e5e84}
+
+.menu-popup .delete-action{color:#a64032}.menu-popup button:hover{background:#f6f2e9}
+
+.delete-confirmation{min-width:190px;padding:8px;color:#6f4a35;font-size:11px;font-weight:700}.delete-confirmation>div{display:flex;gap:6px;margin-top:8px}.delete-confirmation button{border:1px solid #e4ded2;border-radius:4px;background:#fff;padding:7px 8px;font-size:10px}.delete-confirmation .delete-action{color:#a64032;border-color:#e7bdb6}
