@@ -3,3 +3,134 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Uniform card size: fixed height, clamped text, footer pinned to the bottom. */
+.sticky,.sticky:nth-child(n){display:flex;flex-direction:column;height:300px;min-height:0;overflow:visible}
+.sticky h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex-shrink:0}
+.sticky p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:0;flex-shrink:0}
+.handover-note{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex-shrink:0}
+.sticky-emoji{flex-shrink:0}
+.sticky-bottom{flex-shrink:0;min-width:0}
+.sticky-bottom span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:475px){.sticky,.sticky:nth-child(n){height:300px}}
+
+/* Status tabs + My items filter */
+.tabbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.tab{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #e2ded3;border-radius:8px;padding:10px 14px;text-align:left;color:#252c32;box-shadow:2px 3px #e6e0d2;flex:1 1 170px;min-width:0}
+.tab .tab-label{min-width:0}.tab strong{font-size:13px;display:block}.tab small{display:block;color:#a5a098;font-size:9px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab .col-count{margin-left:auto}
+.tab:hover{border-color:#d1b655}
+.tab.active{background:#262c30;border-color:#262c30;color:#fff;box-shadow:2px 3px #d1b655}
+.tab.active small,.tab.active .col-count{color:#c4c8c5}
+.tab:focus-visible{outline:2px solid #bd7635;outline-offset:2px}
+.mine-chip{flex:0 0 auto;font-size:12px;font-weight:800;justify-content:center}
+.mine-chip.active{background:#ffdb64;border-color:#d1b655;color:#262c30}
+.sticky-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;align-items:start}
+.sticky-grid .empty-column{grid-column:1/-1}
+.filterbox label.mine-toggle{flex-direction:row;align-items:flex-start;gap:10px;cursor:pointer}
+.mine-toggle input{margin:2px 0 0;accent-color:#262c30;width:16px;height:16px}
+.mine-toggle strong{display:block;font-size:12px;color:#252c32}
+.mine-toggle small{display:block;font-weight:400;font-size:10px;color:#827d74;margin-top:3px}
+@media(max-width:1130px){.sticky-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:475px){.sticky-grid{grid-template-columns:1fr}.tab{flex-basis:100%}.mine-chip{flex-basis:100%}}
+
+/* Clearer header navigation */
+.header-links{gap:8px}
+.header-links button{font-size:14px;font-weight:700;color:#262c30;background:#fff3c4;border:1px solid #d1b655;border-radius:999px;padding:9px 16px;transition:background .15s,border-color .15s}
+.header-links button:hover{background:#fff;border-color:#262c30}
+.header-links button:focus-visible{outline:2px solid #262c30;outline-offset:2px}
+@media(max-width:1130px){.header-links button{font-size:13px;padding:8px 12px}}
+@media(max-width:750px){.header-links{gap:6px}.header-links button{font-size:12px;padding:8px 10px;flex:1}}
+
+/* Professional underline tabs (overrides earlier tab styles) */
+.tabbar{display:flex;flex-wrap:nowrap;gap:0;margin:0 0 22px;border-bottom:1px solid #ddd7c8;overflow-x:auto;scrollbar-width:none}
+.tabbar::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;display:flex;align-items:center;gap:10px;background:none;border:0;border-bottom:2px solid transparent;border-radius:0;box-shadow:none;margin-bottom:-1px;padding:12px 20px 13px;color:#7d776c;transition:color .15s,border-color .15s}
+.tab .col-icon{width:24px;height:24px;font-size:12px;opacity:.55;transition:opacity .15s}
+.tab strong{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.tab small{display:none}
+.tab .col-count{margin-left:2px;min-width:22px;padding:2px 8px;border-radius:999px;background:#ece8dd;color:#7d776c;font-size:11px;font-weight:700;text-align:center}
+.tab:hover{color:#262c30;border-bottom-color:#cfc8b6}
+.tab:hover .col-icon{opacity:.85}
+.tab.active{background:none;color:#262c30;border-bottom-color:#262c30;box-shadow:none}
+.tab.active .col-icon{opacity:1}
+.tab.active .col-count{background:#262c30;color:#fff}
+.tab:focus-visible{outline:2px solid #bd7635;outline-offset:-2px;border-radius:4px 4px 0 0}
+@media(max-width:475px){.tab{flex:1 0 auto;flex-basis:auto;padding:11px 12px;gap:7px}.tab .col-icon{display:none}}
+
+/* Header nav as large bold text links (overrides pill buttons above) */
+.header-links{gap:32px}
+.header-links button{background:none;border:0;border-radius:0;padding:4px 0;font-size:17px;font-weight:800;letter-spacing:-.01em;color:#262c30;text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:2px;text-underline-offset:6px;transition:text-decoration-color .15s}
+.header-links button:hover{background:none;border:0;text-decoration-color:#262c30}
+.header-links button:focus-visible{outline:2px solid #262c30;outline-offset:4px;border-radius:2px}
+@media(max-width:1130px){.header-links{gap:20px}.header-links button{font-size:15px;padding:4px 0}}
+@media(max-width:750px){.header-links{gap:10px}.header-links button{font-size:14px;padding:4px 0;flex:0 1 auto}}
+
+/* Clearer "Post a report" call to action in the header */
+.header .report-button{font-size:15px;font-weight:800;letter-spacing:.01em;padding:14px 24px;border-radius:8px;background:#262c30;color:#fff;border:2px solid #262c30;box-shadow:0 4px 0 #8f7a2e;transition:transform .12s,box-shadow .12s,background .15s}
+.header .report-button:hover{background:#000;transform:translateY(-1px);box-shadow:0 5px 0 #8f7a2e}
+.header .report-button:active{transform:translateY(3px);box-shadow:0 1px 0 #8f7a2e}
+.header .report-button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media(max-width:750px){.header .report-button{font-size:13px;padding:11px 16px}}
+
+/* Wider report form */
+.report-page{max-width:1440px}
+.report-layout{grid-template-columns:minmax(240px,.65fr) minmax(0,1.85fr);gap:48px}
+.form-paper{padding:40px 44px}
+.form-paper input,.form-paper select,.form-paper textarea{width:100%}
+@media(max-width:1130px){.report-layout{grid-template-columns:minmax(200px,.6fr) minmax(0,1.8fr);gap:32px}}
+@media(max-width:750px){.form-paper{padding:20px}}
+
+/* Board toolbar: expanding search + filter dropdown beside the heading */
+.board-top{align-items:flex-end;gap:16px;flex-wrap:wrap}
+.board-tools{display:flex;align-items:center;gap:10px;margin-left:auto}
+.tool-btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;background:#fff;border:1px solid #d7d2c4;border-radius:8px;color:#262c30;font-size:13px;font-weight:700;transition:border-color .15s,background .15s}
+.tool-btn:hover{border-color:#262c30}
+.tool-btn:focus-visible{outline:2px solid #bd7635;outline-offset:2px}
+.tool-btn.icon{width:40px;padding:0;justify-content:center;flex-shrink:0}
+.tool-btn[aria-expanded="true"]{border-color:#262c30}
+.tool-btn .caret{transition:transform .15s}
+.tool-btn[aria-expanded="true"] .caret{transform:rotate(180deg)}
+.tool-btn.has-filters{background:#fff3c4;border-color:#d1b655}
+.filter-badge{min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#262c30;color:#fff;font-size:10px;display:inline-grid;place-items:center}
+.search{position:relative;display:flex;align-items:center;height:40px;width:40px;background:#fff;border:1px solid #d7d2c4;border-radius:8px;overflow:hidden;transition:width .22s ease,border-color .15s}
+.search .tool-btn.icon{border:0;background:none;height:38px;width:38px}
+.search input{flex:1;min-width:0;border:0;outline:0;background:none;font-size:13px;color:#262c30;padding:0 30px 0 0;opacity:0;transition:opacity .15s}
+.search.open{width:260px;border-color:#262c30}
+.search.open input{opacity:1}
+.search-clear{position:absolute;right:6px;border:0;background:none;color:#8a8478;font-size:12px;padding:6px}
+.search-clear:hover{color:#262c30}
+.filter-drop{position:relative}
+.filter-panel{position:absolute;right:0;top:calc(100% + 8px);z-index:10;width:270px;background:#fff;border:1px solid #e2ded3;border-radius:10px;box-shadow:0 12px 30px #0002;padding:16px}
+.fp-field{display:flex;flex-direction:column;gap:7px;font-size:11px;font-weight:700;color:#67665e;margin-bottom:16px}
+.fp-field select{border:1px solid #d7d5ca;border-radius:6px;padding:10px;background:#fff;font-size:12px;color:#444}
+.filter-panel .mine-toggle{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:12px;border:1px solid #ece7da;border-radius:8px;background:#faf8f2}
+.fp-actions{display:flex;justify-content:space-between;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid #eee9dc}
+.fp-actions button{border:0;background:none;font-size:12px;font-weight:700;color:#7d776c;padding:7px 4px}
+.fp-actions button:disabled{opacity:.4;cursor:default}
+.fp-actions .fp-done{background:#262c30;color:#fff;border-radius:6px;padding:7px 16px}
+@media(max-width:750px){.board-tools{margin-left:0;width:100%}.search.open{flex:1;width:auto}.filter-panel{width:min(270px,calc(100vw - 40px))}}
+
+/* Delete option in card menu */
+.menu-popup button:hover{background:#f6f3ea;border-radius:4px}
+.menu-popup button.danger{color:#b4432f}
+.menu-popup button.danger:hover{background:#fff0ee}
+.menu-confirm{padding:4px}
+.menu-confirm>span{display:block;font-size:11px;font-weight:700;color:#252c32;margin:2px 3px 9px}
+.menu-confirm>div{display:flex;gap:6px}
+.menu-confirm>div button{width:auto;flex:1;text-align:center;border:1px solid #e0dacb;border-radius:5px;padding:6px 8px}
+.menu-popup button.danger.solid{background:#b4432f;border-color:#b4432f;color:#fff}
+.menu-popup button.danger.solid:hover{background:#97351f}
+
+/* Header without nav links: keep CTA on the right */
+.header .report-button{margin-left:auto}
+
+/* Per-field form validation */
+.form-paper label.invalid input,.form-paper label.invalid select{border-color:#ba523e;background:#fffaf9}
+.form-paper label.invalid input:focus,.form-paper label.invalid select:focus{outline:2px solid #ba523e33;outline-offset:1px}
+.field-error{font-size:11px;font-weight:600;color:#ba523e;display:flex;align-items:center;gap:5px}
+.field-error::before{content:'!';display:inline-grid;place-items:center;width:14px;height:14px;border-radius:50%;background:#ba523e;color:#fff;font-size:9px;font-weight:800;flex-shrink:0}
+.form-error{margin:0 0 22px;border-radius:0 4px 4px 0}
+.form-error strong{display:block;margin-bottom:6px}
+.form-error ul{margin:0;padding-left:18px;line-height:1.7}
+.form-error a{color:#ba523e;font-weight:700}
