@@ -5,14 +5,15 @@
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
 
 /* ---- Redesign: single dark header ---- */
-.header{background:#293036;border-bottom:0;justify-content:space-between;padding:18px 4%}
+.header{background:#293036;border-bottom:0;display:grid;grid-template-columns:1fr auto 1fr;padding:18px 4%}
+.header-actions{justify-self:end}
 .sun{color:#ffdb64}
 .wordmark{color:#ffdb64;cursor:pointer}
 .wordmark span{color:#ffdb64}
-.headline p.slogan{display:block;margin:0 0 0 22px;padding-left:22px;border-left:1px solid #4a525a;color:#e6e7df;font-size:10px;font-weight:700;letter-spacing:.11em}
+.header .slogan{margin:0;text-align:center;color:#e6e7df;font-size:10px;font-weight:700;letter-spacing:.11em;white-space:nowrap}
 .header-actions{display:flex;gap:10px;flex-wrap:wrap}
 .report-button.lost{background:#ffdb64;color:#262c30}
-.report-button.found{background:transparent;color:#ffdb64;border:1px solid #ffdb64}
+.report-button.found{background:#ffdb64;color:#262c30}
 
 /* ---- Status tabs (filter) ---- */
 .status-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
@@ -44,8 +45,14 @@
 .side-message button{display:block}
 
 @media(max-width:750px){
-.header{flex-direction:column;align-items:flex-start}
-.headline p.slogan{display:none}
+.header{grid-template-columns:1fr;justify-items:start}
+.header .slogan{display:none}
 .header-actions{width:100%}
 .header-actions .report-button{flex:1}
 }
+
+/* ---- Sticky footer: page fills the viewport, footer stays at the bottom ---- */
+.notice-app{min-height:100vh;display:flex;flex-direction:column}
+.notice-app>main{flex:1 0 auto;width:100%;box-sizing:border-box;margin:0 auto}
+.report-page{min-height:0}
+.pagefooter{flex-shrink:0}
