@@ -1,0 +1,21 @@
+search "black backpack" (1) ["Black backpack"]
+search "backpack" (2) ["Black backpack","Dark backpack"]
+search "blue water bottle" (0) []
+search "wireless earbuds" (1) ["Wireless earbuds"]
+search "blue earbuds" (0) []
+search "security desk" (0) []
+search "electronics" (0) []
+no-result columns showing "Nothing here yet": 3
+status=found {"total":"(6)","titles":["Dark backpack","Student ID card","Earbuds in blue case","Metal water bottle","Calculator","USB flash drive"],"empties":2}
+after clicking Noticeboard, status select = found
+apply message: 13 reports shown.✕
+message after changing filter: 13 reports shown.✕ | heading count (6)
+invalid title error: Please review your entries. | focus on BUTTON
+duplicate error: Please review your entries.
+post found report while filter=lost: Your report has been posted.✕ | new card visible? false
+stored record: {"id":"f-1793869692484","title":"Grey umbrella","category":"other","status":"found","location":"","description":"","owner":"you","created":"Today","emoji":"📌","collectionPoint":"","handoverStatus":"reported"}
+menu on another student report: Reported by another student
+menu open after Escape? true
+menu open after outside click? true
+mobile: first card top 989 | page height 4682 | found column top 2480 | horizontal overflow false
+console problems: []

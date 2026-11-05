@@ -1,0 +1,26 @@
+✔ seed data still has all 13 example records (0.8364ms)
+✔ title needs at least two characters after trimming (0.548ms)
+✔ category and status are required and every problem is reported at once (0.1668ms)
+✔ same title at the same location is rejected, ignoring case and spaces (0.1564ms)
+✔ same title at a different location is allowed (0.1068ms)
+✔ a report does not count as a duplicate of itself when edited (0.0831ms)
+✔ search finds words in any order and across fields (0.6534ms)
+✔ search also covers category and collection point (0.604ms)
+✔ search stays a superset of the old exact-phrase search (0.2301ms)
+✔ similar reports recover near misses without colour noise (0.8043ms)
+✔ possible matches link exactly the four real pairs in the example data (0.3579ms)
+✔ matching works in both directions and never suggests claimed reports (0.1299ms)
+✔ a shared colour alone is not a match (0.061ms)
+✔ a shared noun in both titles is enough, even with no description (0.0467ms)
+✔ only received records with a named collection point claim to be at one (0.0982ms)
+✔ claimed items never imply a handover that is not on record (0.0498ms)
+✔ next steps send people to a desk only when the item is on record there (0.0708ms)
+✔ new reports sort first, then newest date (0.0786ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1102.897
