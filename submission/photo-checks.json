@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-05",
+  "checks": [
+    "Upload control allows selecting multiple photos together",
+    "Two selected photos are prepared and previewed",
+    "An oversized batch is rejected without losing existing previews",
+    "Unreadable images report a helpful error and keep existing photos",
+    "Selected photos can be removed before saving",
+    "Further selections append to the existing photo list",
+    "Report creation saves a multi-photo gallery on its card",
+    "Card controls display the next distinct photo",
+    "Previous photo returns to the first image",
+    "Comparison views also display uploaded photos",
+    "Multiple uploaded photos persist after refreshing the browser",
+    "Editing a report loads its existing photos",
+    "Saving report edits preserves attached photos",
+    "Removing one photo persists and hides unnecessary gallery controls",
+    "All photos can be removed without preventing report submission",
+    "The uploader prevents additions when all five photo slots are filled",
+    "All prepared image previews decode successfully",
+    "Removing a photo re-enables the file picker",
+    "Photo uploader and previews fit a phone viewport"
+  ]
+}

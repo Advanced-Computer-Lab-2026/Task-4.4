@@ -1,0 +1,98 @@
+Campus Lost & Found — UI/UX Rescue submission
+
+Student-selected improvements and justifications
+
+1. Discover possible matches between separate lost and found notices.
+   Goal: a student wants to recognize a notice that may describe their missing item.
+   Before: related reports existed in separate columns, requiring manual comparison.
+   After: a Possible match button opens the two reports together, explains the shared
+   wording, and preserves the distinction between staff receipt and an unconfirmed
+   found report. Suggestions require the same category, opposite lost/found statuses,
+   a shared meaningful title word, and additional supporting wording. They are local
+   text heuristics, not verified identifications; they can miss synonyms or suggest
+   unrelated items. No records are merged and no ownership/status changes occur.
+   Trade-off considered: a Find similar button would be simpler, but would require
+   the student to search and compare manually. Unverified suggestions were chosen.
+
+2. Make the header compact and its controls consistently aligned.
+   Goal: a student needs to locate browsing options or start a report quickly.
+   Before: large gaps and uneven grouping made navigation feel disconnected.
+   After: a centered navigation group, aligned logo and posting action, consistent
+   control heights, and reduced padding make the actions easier to scan and place
+   notices closer to the top. Navigation opens the corresponding status tab.
+   Trade-off considered: a second navigation row uses more desktop height. It is
+   retained only at the existing narrow-screen breakpoint, where wrapping helps.
+
+3. Separate statuses into tabs and paginate the reports.
+   Goal: browse many notices without an ever-growing list or nested scroll boxes.
+   Before: each status column expanded the page with every matching report.
+   After: Lost, Found and Claimed each have their own tab, with three reports per
+   page and Previous/Next controls. Counts reflect the current search/category,
+   and the visible range and page number explain where the student is in the list.
+   Search, category changes and tab changes return to page one. Empty lists and
+   first/last pages disable unavailable paging actions. The status tabs replace
+   the redundant status dropdown and support arrows, Home and End for keyboards.
+   Trade-off considered: independent scroll boxes keep columns visible together,
+   but nested scrolling is harder to navigate. The student chose separate tabs
+   with explicit pages, and the scroll-box component and styles were removed.
+
+Additional improvement: show the actual validation reason.
+   The validator already detected a short title, missing category, missing status
+   and duplicate title/location. The UI discarded that reason. It now shows the
+   exact message in the existing alert, without changing any validation rules.
+
+AI suggestion refined/rejected by the student
+   AI suggested replacing the red backpack emoji with a neutral outline. The student
+   rejected that change and chose to preserve all existing emojis, while keeping the
+   possible-match comparison. The student refined the scrolling design into
+   status tabs with three reports per page on all screen sizes.
+
+Demonstration (use Reset demo data first if needed)
+   1. Search for backpack; open Possible match on Black backpack. Compare the details
+      with Dark backpack and note its receipt at Campus Security Desk.
+   2. Clear filters. Select Found and use Next to reach USB flash drive on page two.
+      Select Lost to browse only lost reports. Try the Claimed tab as well.
+   3. Post a report with a new title, Found status and a category. Location and details
+      may remain blank. Show the posted notice and refresh to demonstrate persistence.
+   4. Unsuccessful action: submit an empty report to see the exact title error. For a
+      duplicate example, use Black backpack / accessories / lost / Library - second
+      floor. A duplicate must be rejected rather than added.
+   5. Edit an owned report through its action menu. Other students' reports offer no
+      edit action. Reset restores all 13 original records.
+
+
+Optional report photos
+   Cards show a gallery only when photos exist; photo-free cards have no image area.
+   Selected demo reports include local sample illustrations, with two backpack views.
+   Legacy demo records gain examples only when no photos field was saved, preserving
+   students' uploaded photos and deliberate removals.
+   Create and edit forms accept multiple JPG, PNG or WebP files, up to five photos
+   per report and 10 MB per source file. Students can preview, add and remove photos.
+   Images are resized and compressed before being stored with reports in this
+   browser. Photo navigation is available on report cards and comparison views.
+   A failed upload preserves earlier selections; a failed browser-storage write
+   leaves the form open with an error so photos can be removed before retrying.
+   Photos remain optional and are not used by the text-based matching algorithm.
+
+Screenshots
+   The six existing before/after screenshots document the previous scroll-box
+   iteration. They were left unchanged when the student requested that screenshot
+   work stop. Current tab/pagination behavior is covered by browser-checks.json.
+
+Verification
+   npm test: 16 tests covering matching, pagination, photos and legacy sample data.
+      Photo validation checks supported types, size boundaries and the five-photo cap.
+   npm run build: production bundle builds successfully.
+   browser-checks.json: 36 passing checks for tabs, paging, keyboard navigation,
+      filtering, matching, forms, ownership, persistence and responsive layouts.
+      No browser warning/error logs were seen.
+   photo-checks.json: 19 photo browser checks covering multi-file uploads, errors,
+      galleries, editing, refresh persistence, samples and explicit photo removal.
+   Test-only browser data was reset to the original 13 notices after testing.
+
+Compatibility and constraints
+   No backend, new runtime dependencies, storage-key migration or API changes.
+   Matching is derived from current records, including records outside active filters.
+   Existing search, filtering, ownership checks, create/edit and reset remain intact.
+
+Branch: ui-changes (renamed from codex/lost-found-usability).
