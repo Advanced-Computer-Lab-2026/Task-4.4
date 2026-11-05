@@ -3,3 +3,25 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Navigation feedback: clearly identify the current noticeboard view. */
+.header-links button{padding:9px 10px;border-radius:5px;transition:background-color .15s ease,color .15s ease;}
+.header-links button:hover{background:#f2c94d;color:#252c32;}
+.header-links button.active{background:#252c32;color:#fff;}
+.header-links button:focus-visible{outline:3px solid #252c32;outline-offset:3px;}
+
+/* Clickable notice cards and accessible item-details dialog */
+.clickable-sticky{cursor:pointer;transition:box-shadow .18s ease,filter .18s ease;}
+.clickable-sticky:hover{box-shadow:4px 8px 0 #b6aa9255;filter:brightness(.98);}
+.clickable-sticky:focus-visible{outline:3px solid #252c32;outline-offset:4px;}
+.details-backdrop{position:fixed;inset:0;z-index:1000;background:#20262ac4;display:flex;align-items:center;justify-content:center;padding:20px;}
+.details-dialog{position:relative;width:min(100%,490px);max-height:90vh;overflow:auto;background:#fffdf5;border-radius:10px;padding:32px;box-shadow:0 16px 55px #0004;color:#252c32;}
+.details-close{position:absolute;right:18px;top:16px;background:transparent;border:0;font-size:19px;padding:7px;}
+.details-status{display:inline-block;background:#ffdf86;padding:7px 11px;border-radius:20px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.details-emoji{font-size:52px;margin:18px 0 8px;}
+.details-dialog h2{font:700 26px 'Space Grotesk',sans-serif;margin:8px 0 14px;}
+.details-description{font-size:14px;line-height:1.65;color:#69665f;}
+.details-meta{border-top:1px solid #e6dfd0;margin:24px 0;}.details-meta>div{padding:12px 0;border-bottom:1px solid #eee8dc;}
+.details-meta dt{font-size:11px;font-weight:800;color:#8b806c;margin-bottom:5px;}.details-meta dd{font-size:13px;margin:0;line-height:1.5;}
+.details-done{width:100%;border:0;background:#252c32;color:white;border-radius:5px;padding:13px;font-weight:700;cursor:pointer;}
+@media(max-width:475px){.details-dialog{padding:22px;}}
