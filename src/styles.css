@@ -78,3 +78,14 @@
 .menu-popup{min-width:190px}
 .menu-popup{text-transform:none;letter-spacing:0;font-weight:400}
 .form-paper [aria-invalid="true"]:focus{outline:2px solid #ba523e;outline-offset:1px}
+
+/* ---- "I found this" on other students' lost cards ---- */
+.found-this{align-self:flex-start;margin:0 0 13px;background:#2f7a4c;color:#fff;border:0;border-radius:4px;padding:7px 12px;font-size:11px;font-weight:800;cursor:pointer}
+.found-this:hover{background:#246240}
+.found-for{background:#eaf6ee;border-left:3px solid #2f7a4c;color:#2c4a37;padding:12px;margin:0 0 20px;font-size:12px;line-height:1.5}
+
+/* ---- Header at medium widths: drop the slogan so both report buttons stay on one line ---- */
+.header-actions{grid-column:3;flex-wrap:nowrap}
+@media(max-width:1200px){.header .slogan{display:none}}
+@media(max-width:750px){.header-actions{grid-column:auto;flex-wrap:wrap}}
+.label-text{display:inline}
