@@ -134,3 +134,22 @@
 .found-for{background:#f7f5ef;border-left-color:#5fa67a;color:#4d504c}
 .status-pill.lost,.status-pill.found{background:#f7f5ef;color:#293036}
 .form-paper header .form-sub{font-size:13px;letter-spacing:0;color:#7a7366;text-transform:none}
+
+/* ================= Report form as a modal dialog ================= */
+/* Fade + slight rise for the panel; fade + blur for the backdrop (scrim) */
+@keyframes modal-in{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes modal-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(8px) scale(.98)}}
+@keyframes scrim-in{from{background:rgba(41,48,54,0);backdrop-filter:blur(0)}to{background:rgba(41,48,54,.45);backdrop-filter:blur(3px)}}
+@keyframes scrim-out{from{background:rgba(41,48,54,.45);backdrop-filter:blur(3px)}to{background:rgba(41,48,54,0);backdrop-filter:blur(0)}}
+.report-modal{border:0;padding:0;background:transparent;width:min(680px,calc(100vw - 32px));max-height:calc(100vh - 48px);overflow:visible;animation:modal-in .22s ease-out}
+.report-modal::backdrop{background:rgba(41,48,54,.45);backdrop-filter:blur(3px);animation:scrim-in .22s ease-out}
+.report-modal.closing{animation:modal-out .18s ease-in forwards}
+.report-modal.closing::backdrop{animation:scrim-out .18s ease-in forwards}
+.report-modal .form-paper{max-height:calc(100vh - 48px);overflow-y:auto;box-sizing:border-box;border-radius:10px;box-shadow:0 20px 50px #0003}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.report-modal h2{font:700 22px 'Space Grotesk';margin:0 0 6px}
+.modal-close{border:0;background:transparent;font-size:16px;color:#7a7366;width:32px;height:32px;border-radius:6px;cursor:pointer;flex-shrink:0}
+.modal-close:hover{background:#f1ede2;color:#293036}
+body:has(.report-modal[open]){overflow:hidden}
+@media (prefers-reduced-motion:reduce){.report-modal,.report-modal::backdrop,.report-modal.closing,.report-modal.closing::backdrop{animation:none}}
+@media(max-width:560px){.report-modal{width:calc(100vw - 16px)}}
