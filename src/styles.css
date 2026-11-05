@@ -56,3 +56,25 @@
 .notice-app>main{flex:1 0 auto;width:100%;box-sizing:border-box;margin:0 auto}
 .report-page{min-height:0}
 .pagefooter{flex-shrink:0}
+
+/* ---- Field-level validation ---- */
+.form-paper [aria-invalid="true"]{border-color:#ba523e;box-shadow:0 0 0 2px #ba523e22}
+.field-error{display:flex;gap:6px;align-items:center;color:#ba523e;font-size:12px;font-weight:600}
+.field-error::before{content:"!";display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#ba523e;color:#fff;font-size:10px;font-weight:800;flex-shrink:0}
+.form-error.duplicate{margin:-6px 0 19px;line-height:1.5}
+.form-error.duplicate strong{display:block;font-size:13px;margin-bottom:4px}
+.form-error.duplicate p{margin:0 0 10px;color:#8a4a3c}
+.form-error.duplicate button{background:#ba523e;color:#fff;border:0;border-radius:4px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer}
+
+/* ---- Card highlight (from "View existing report") ---- */
+.sticky.highlight{outline:3px solid #293036;outline-offset:3px}
+
+/* ---- Delete own lost report ---- */
+.menu-popup button.danger{color:#b2402f;font-weight:700}
+.confirm-delete p{margin:4px 7px 8px;font-size:11px;line-height:1.4;color:#4d504c}
+.confirm-delete div{display:flex;gap:6px}
+.confirm-delete div button{width:auto;border:1px solid #e4ded2;border-radius:4px;padding:6px 10px;font-weight:700}
+.confirm-delete div button.danger{background:#b2402f;border-color:#b2402f;color:#fff}
+.menu-popup{min-width:190px}
+.menu-popup{text-transform:none;letter-spacing:0;font-weight:400}
+.form-paper [aria-invalid="true"]:focus{outline:2px solid #ba523e;outline-offset:1px}
