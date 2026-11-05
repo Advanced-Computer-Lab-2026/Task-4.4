@@ -3,3 +3,48 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Readable type, with the existing fonts and noticeboard palette. */
+.header-links button,.report-button,.filterbuttons button,.side-message button,
+.reset,.menu-popup button,.crumbs,.form-actions>button:first-child{font-size:14px}
+.intro,.side-message p,.column-head small,.time-note,.empty-column,
+.message,.menu-popup span,.paper-note{font-size:14px;line-height:1.6}
+.filterbox label,.form-paper label{font-size:15px;line-height:1.5}
+.filterbox input,.filterbox select,.form-paper input,.form-paper select,
+.form-paper textarea{font-size:16px;min-width:0;width:100%}
+.filterbox h3,.side-message strong{font-size:17px}
+.board-top h2 span,.col-count,.column-head strong{font-size:16px}
+.sticky-top{font-size:12px;line-height:1.5;letter-spacing:.06em}
+.sticky h3{font-size:20px;line-height:1.35;min-height:2.7em}
+.sticky p{font-size:16px;line-height:1.6;min-height:0}
+.handover-note{font-size:14px;line-height:1.5}
+.sticky-bottom,.sticky-bottom small{font-size:14px;line-height:1.5}
+.kicker{font-size:12px}
+.form-error{font-size:15px}
+
+/* Shared rows keep cards aligned while allowing all descriptions to expand. */
+.board-grid{align-items:stretch}
+.board-column{display:grid;grid-template-rows:subgrid;grid-row:span var(--board-rows);gap:14px}
+.column-head{margin-bottom:0}
+.sticky-list{display:contents}
+.sticky{display:flex;flex-direction:column;min-height:420px;overflow-wrap:anywhere}
+.sticky:nth-child(n){transform:none}
+.sticky-emoji{min-height:48px}
+.sticky-bottom{margin-top:auto;align-items:flex-end;gap:12px}
+.sticky-bottom>span{min-width:0}
+.sticky-bottom small{flex-shrink:0}
+.results-summary{font-size:16px;line-height:1.5;margin:0 0 18px}
+.no-results{padding:22px;border:1px dashed #d8d0ba;border-radius:5px;margin-bottom:20px;line-height:1.6}
+.no-results h3{margin-top:0}
+.no-results button{background:#f7d66d;border:1px solid #f2d471;border-radius:4px;padding:10px 13px;font-size:14px}
+.show-more{text-align:center;margin-top:28px}
+@media(max-width:750px){
+ .header-links{flex-wrap:wrap;gap:12px}
+ .board-grid{grid-template-columns:1fr}
+ .board-top{align-items:start;gap:12px;flex-wrap:wrap}
+ .sticky{min-height:420px}
+}
+@supports not (grid-template-rows:subgrid){
+ .board-column{display:block}
+ .sticky-list{display:flex;margin-top:14px}
+}
