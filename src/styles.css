@@ -3,3 +3,126 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Compact, consistently aligned navigation; existing click behavior is unchanged. */
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 20px;
+  padding: 14px max(4%, calc((100% - 1472px) / 2));
+}
+.headline { min-width: 0; }
+.header-links { margin: 0; gap: 4px; align-items: center; }
+.header-links button { min-height: 40px; padding: 10px 12px; border-radius: 5px; }
+.header-links button:hover { background: #eac44f; color: #252c32; }
+.header > .report-button { justify-self: end; min-height: 40px; }
+.ruleline { padding: 9px max(4%, calc((100% - 1472px) / 2)); }
+.workspace { padding-top: 26px; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #886827;
+  outline-offset: 3px;
+}
+
+/* A permanent left-hand rail makes overflow visible even with OS overlay scrollbars. */
+.column-panel { min-width: 0; }
+.scroll-frame { position: relative; border: 1px solid #d8cfb8; border-radius: 9px; background: #ede8dc; }
+.report-scroll {
+  max-height: min(var(--three-card-height), max(280px, calc(100dvh - 290px)));
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  border-radius: 8px;
+}
+.report-scroll::-webkit-scrollbar { display: none; }
+.report-scroll:focus-visible { outline: 3px solid #886827; outline-offset: 3px; }
+.has-overflow .report-scroll { margin-left: 20px; }
+.sticky-list { padding: 12px; }
+.sticky-list > * { flex-shrink: 0; }
+.sticky { display: flex; flex-direction: column; }
+.sticky .sticky-emoji { align-self: flex-start; }
+.scroll-rail {
+  position: absolute;
+  left: 7px;
+  top: 12px;
+  bottom: 12px;
+  width: 11px;
+  background: #dcd1b8;
+  border: 1px solid #c5b48c;
+  border-radius: 10px;
+  cursor: pointer;
+  touch-action: none;
+}
+.scroll-rail:focus-visible { outline: 3px solid #886827; outline-offset: 3px; }
+.scroll-thumb {
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-radius: 10px;
+  background: #8b6b34;
+  cursor: grab;
+}
+.scroll-rail:active .scroll-thumb { cursor: grabbing; background: #62491f; }
+.scroll-hint { display: flex; justify-content: space-between; gap: 8px; margin: 9px 2px 0; color: #75613c; font-size: 10px; }
+.empty-column { background: #f7f4eb; color: #7b6b4b; }
+
+.match-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 8px 10px;
+  border: 1px solid #bfa65e;
+  border-radius: 5px;
+  color: #5d4a1d;
+  background: #fff7d0;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+}
+.match-button:hover { background: #f9e8a8; }
+.match-button span { font-size: 16px; }
+.match-dialog {
+  width: min(900px, calc(100% - 32px));
+  max-height: calc(100dvh - 48px);
+  padding: 26px;
+  border: 1px solid #d5c8a9;
+  border-radius: 12px;
+  background: #f5f3ec;
+  color: #252c32;
+  box-shadow: 0 20px 70px #0004;
+}
+.match-dialog::backdrop { background: #252c3299; }
+.match-dialog-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.match-dialog h2 { margin: 7px 0 0; font: 700 28px 'Space Grotesk', sans-serif; }
+.comparison-close { flex-shrink: 0; width: 40px; height: 40px; border: 1px solid #cfc3a9; border-radius: 6px; background: #fff; }
+.match-disclaimer { padding: 12px 14px; border: 1px solid #e7c979; border-radius: 6px; background: #fff3cc; font-size: 13px; line-height: 1.6; }
+.comparison-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.comparison-grid > section { min-width: 0; }
+.comparison-label { font-size: 12px; color: #746342; }
+.comparison-report { border: 1px solid #ded4bc; border-radius: 7px; padding: 18px; background: #fffdf5; overflow-wrap: anywhere; }
+.comparison-report h3 { font: 700 19px 'Space Grotesk', sans-serif; margin: 15px 0; }
+.comparison-report h3 span { font-size: 26px; }
+.comparison-report dl { margin: 0; font-size: 13px; line-height: 1.6; }
+.comparison-report dt { font-size: 11px; font-weight: 700; color: #7c715c; margin-top: 13px; }
+.comparison-report dd { margin: 3px 0 0; }
+.status-tag { display: inline-block; border-radius: 4px; padding: 4px 9px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.status-tag.lost { color: #7d3025; background: #ffe1da; }
+.status-tag.found { color: #285b49; background: #d8efe4; }
+.comparison-custody { font-weight: 700; }
+.comparison-candidate + .comparison-candidate { margin-top: 18px; }
+.match-reasons { font-size: 11px; line-height: 1.7; color: #75613c; margin: 8px 2px 0; }
+.match-reasons strong { display: block; }
+.comparison-next-step { border-top: 1px solid #d9cfb9; margin: 22px 0 0; padding-top: 15px; color: #665c48; font-size: 12px; line-height: 1.6; }
+
+@media (max-width: 750px) {
+  .header { display: flex; padding: 12px 15px; gap: 10px; }
+  .header > .report-button { margin-left: auto; }
+  .header-links { gap: 4px; margin: 0; }
+  .header-links button { padding: 8px; }
+  .report-scroll { max-height: min(var(--three-card-height), max(260px, calc(100dvh - 230px))); }
+  .comparison-grid { grid-template-columns: 1fr; }
+  .match-dialog { padding: 18px; }
+}
