@@ -68,20 +68,6 @@ Screenshots
    before-error-reason.jpg files were freshly captured from the unchanged main
    branch at the same browser width and with the same report/search/form states.
    These six final screenshots are committed only to codex/lost-found-usability.
-   The screenshots below document the earlier left-scrollbar iteration.
-   screenshots/before-board.jpg and screenshots/after-board.jpg: same default
-      1280px-wide browser, showing the header and board before/after.
-   screenshots/before-validation.jpg and screenshots/after-validation.jpg: the same
-      unsuccessful empty submission, before/after feedback.
-   screenshots/after-desktop-three-cards.jpg: tall desktop showing three full cards.
-   screenshots/after-matches.jpg: side-by-side backpack comparison.
-   screenshots/after-unconfirmed-match.jpg: earbuds comparison preserves unconfirmed
-      collection-point status, even when the related lost notice is filtered out.
-   screenshots/after-scroll-end.jpg: final notices reached inside the Found box.
-   screenshots/after-success.jpg: successful report creation.
-   screenshots/after-duplicate.jpg: duplicate validation.
-   screenshots/after-mobile.jpg and screenshots/after-mobile-comparison.jpg:
-      preserved responsive layout and stacked comparison.
 
 Verification
    npm test: five matching tests, including rejected unrelated/claimed/same-status
