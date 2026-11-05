@@ -1,7 +1,9 @@
-import React,{useEffect,useMemo,useState} from 'react';
+import React,{useMemo,useState} from 'react';
 import MatchComparison from './MatchComparison.jsx';
 import {findPossibleMatches} from './matching.js';
 import {paginateReports} from './pagination.js';
+import ReportPhotos from './ReportPhotos.jsx';
+import PhotoUpload from './PhotoUpload.jsx';
 
 const STORE='acl-foundboard-v3';
 // Fictional campus locations for this standalone teaching demo.
@@ -23,7 +25,7 @@ const seed=[
 ];
 const categories=['all','electronics','clothing','documents','accessories','other'];
 const statuses=['lost','found','claimed'];
-const clean={title:'',category:'',status:'',location:'',description:''};
+const clean={title:'',category:'',status:'',location:'',description:'',photos:[]};
 function getSaved(){try{const s=JSON.parse(localStorage.getItem(STORE));return Array.isArray(s)?s:seed;}catch{return seed;}}
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 function validate(f,arr,id){
@@ -46,7 +48,8 @@ export default function App(){
  const [message,setMessage]=useState('');
  const [openMenu,setOpenMenu]=useState(null);
  const [comparisonId,setComparisonId]=useState(null);
- useEffect(()=>localStorage.setItem(STORE,JSON.stringify(items)),[items]);
+ const [photosBusy,setPhotosBusy]=useState(false);
+ const [formSession,setFormSession]=useState(0);
  const filtered=useMemo(()=>items.filter(x=>(cat==='all'||x.category===cat)&&`${x.title} ${x.location} ${x.description}`.toLowerCase().includes(q.toLowerCase())),[items,q,cat]);
  const reportsByStatus=useMemo(()=>Object.fromEntries(statuses.map(status=>[status,filtered.filter(item=>item.status===status)])),[filtered]);
  const reportPage=paginateReports(reportsByStatus[activeStatus],noticePage);
@@ -63,11 +66,14 @@ export default function App(){
   selectStatus(statuses[index]);
   event.currentTarget.parentElement.querySelectorAll('[role="tab"]')[index].focus();
  }
- function create(){setCurrent(null);setForm({...clean});setError('');setPage('form');}
- function edit(row){if(row.owner!=='you')return;setCurrent(row.id);setForm({title:row.title,category:row.category,status:row.status,location:row.location,description:row.description});setOpenMenu(null);setError('');setPage('form');}
- function submit(e){e.preventDefault();const v=validate(form,items,current);if(v){setError(v);return;}const d={...form,title:form.title.trim(),location:form.location.trim(),description:form.description.trim(),owner:'you',created:'Today',emoji:current?items.find(x=>x.id===current)?.emoji:'📌',...(current?{}:{collectionPoint:'',handoverStatus:'reported'})};
- if(current){setItems(items.map(x=>x.id===current?{...x,...d}:x));setMessage('Report updated.');}else{setItems([{id:`f-${Date.now()}`,...d},...items]);setMessage('Your report has been posted.');}selectStatus(form.status);setPage('board');setCurrent(null);}
- function reset(){setItems(seed);setPage('board');clearFilters();selectStatus('lost');setMessage('Example reports restored.');}
+ function create(){setCurrent(null);setForm({...clean});setFormSession(value=>value+1);setPhotosBusy(false);setError('');setPage('form');}
+ function edit(row){if(row.owner!=='you')return;setCurrent(row.id);setForm({title:row.title,category:row.category,status:row.status,location:row.location,description:row.description,photos:row.photos||[]});setFormSession(value=>value+1);setPhotosBusy(false);setOpenMenu(null);setError('');setPage('form');}
+ function saveItems(next){localStorage.setItem(STORE,JSON.stringify(next));setItems(next);}
+ function submit(e){e.preventDefault();if(photosBusy){setError('Please wait for your photos to finish preparing.');return;}const v=validate(form,items,current);if(v){setError(v);return;}const d={...form,title:form.title.trim(),location:form.location.trim(),description:form.description.trim(),owner:'you',created:'Today',emoji:current?items.find(x=>x.id===current)?.emoji:'📌',...(current?{}:{collectionPoint:'',handoverStatus:'reported'})};
+ const next=current?items.map(x=>x.id===current?{...x,...d}:x):[{id:`f-${Date.now()}`,...d},...items];
+ try{saveItems(next);}catch{setError('This report could not be saved in browser storage. Remove some photos or free up storage, then try again.');return;}
+ setMessage(current?'Report updated.':'Your report has been posted.');selectStatus(form.status);setPage('board');setCurrent(null);}
+ function reset(){try{saveItems(seed);}catch{setMessage('Browser storage is unavailable. Demo data could not be reset.');return;}setPage('board');clearFilters();selectStatus('lost');setMessage('Example reports restored.');}
  return <div className="notice-app"><header className="header"><div className="headline"><span className="sun">✺</span><button onClick={()=>setPage('board')} className="wordmark">FOUND<span>on campus</span></button><p>Community noticeboard</p></div><div className="header-links"><button onClick={()=>setPage('board')}>Noticeboard</button><button onClick={()=>{selectStatus('lost');setPage('board')}}>Missing items</button><button onClick={()=>{selectStatus('found');setPage('board')}}>Recently found</button></div><button className="report-button" onClick={create}>+ Post a report</button></header>
   <div className="ruleline"><span>SEARCH • DISCOVER • REUNITE</span><span>Helping lost things find their way back.</span></div>
   {page==='board'?<main className="workspace"><aside className="filters"><p className="kicker">YOUR NOTICEBOARD</p><h1>Lost something?<br/><em>You're in the right place.</em></h1><p className="intro">Browse what the campus community has shared or post what you've lost or found.</p><div className="filterbox"><h3>Browse reports</h3><label>Search items<input value={q} onChange={e=>{setQ(e.target.value);setNoticePage(1);setOpenMenu(null)}} placeholder="What are you looking for?"/></label><label>Item category<select value={cat} onChange={e=>{setCat(e.target.value);setNoticePage(1);setOpenMenu(null)}}><option value="all">All categories</option>{categories.slice(1).map(c=><option key={c} value={c}>{cap(c)}</option>)}</select></label><div className="filterbuttons"><button onClick={()=>setMessage(`${reportPage.total} ${activeStatus} reports match your filters.`)}>Apply</button><button onClick={clearFilters}>Clear</button></div></div><div className="side-message"><span>📍</span><strong>Lost or found something?</strong><p>Every report gets us a little closer.</p><button onClick={create}>Share your report →</button></div><button className="reset" onClick={reset}>Reset demo data</button></aside>
@@ -87,7 +93,8 @@ export default function App(){
           <button className="menu" onClick={()=>setOpenMenu(openMenu===item.id?null:item.id)} aria-label={`Actions for ${item.title}`}>···</button>
           {openMenu===item.id&&<div className="menu-popup">{item.owner==='you'?<button onClick={()=>edit(item)}>Edit your report</button>:<span>Reported by another student</span>}</div>}
         </div></div>
-        <div className="sticky-emoji">{item.emoji}</div><h3>{item.title}</h3>
+        <ReportPhotos photos={item.photos} title={item.title}/>
+        <div className="report-card-heading"><span className="sticky-emoji" aria-hidden="true">{item.emoji}</span><h3>{item.title}</h3></div>
         <p>{item.description||'No additional description.'}</p>
         {item.status!=='lost'&&<div className="handover-note">{item.handoverStatus==='received'&&item.collectionPoint?`Received at ${item.collectionPoint}`:item.handoverStatus==='released'?'Collected by owner':'Reported found - not confirmed at a collection point'}</div>}
         {possibleMatches[item.id].length>0&&<button className="match-button" aria-label={`Compare ${possibleMatches[item.id].length} possible ${possibleMatches[item.id].length===1?'match':'matches'} for ${item.title}`} onClick={()=>setComparisonId(item.id)}>
@@ -103,7 +110,7 @@ export default function App(){
         <button type="button" disabled={reportPage.page===reportPage.pageCount} onClick={()=>changeNoticePage(reportPage.page+1)}>Next →</button>
       </nav>
     </section>
-   </section></main>:<main className="report-page"><div className="crumbs"><button onClick={()=>setPage('board')}>← Noticeboard</button><span>/</span><span>Report an item</span></div><div className="report-layout"><div className="report-intro"><span className="seal">✺</span><p className="kicker">HELP THE COMMUNITY</p><h1>{current?'Update your report':'Tell us what happened.'}</h1><p>Small details can help someone recognize their belongings.</p><div className="paper-note">Your report will appear on the public campus noticeboard with the details you provide.</div></div><section className="form-paper"><header><p>NEW NOTICE / FORM 01</p><h2>{current?'Edit report':'Report an item'}</h2></header><form onSubmit={submit}><label>Item title <b>*</b><input value={form.title} onChange={e=>setForm(s=>({...s,title:e.target.value}))} placeholder="e.g., Black backpack"/></label><label>Status <b>*</b><select value={form.status} onChange={e=>setForm(s=>({...s,status:e.target.value}))}><option value="">Choose one</option>{statuses.map(s=><option key={s} value={s}>{cap(s)}</option>)}</select></label><label>Category <b>*</b><select value={form.category} onChange={e=>setForm(s=>({...s,category:e.target.value}))}><option value="">Select item category</option>{categories.slice(1).map(s=><option key={s}>{s}</option>)}</select></label><label>Last known location<input value={form.location} onChange={e=>setForm(s=>({...s,location:e.target.value}))} placeholder="Location (optional)"/></label><label>More details<textarea rows="6" value={form.description} onChange={e=>setForm(s=>({...s,description:e.target.value}))} placeholder="Describe your item"/></label>{error&&<div className="form-error" role="alert">{error}</div>}<div className="form-actions"><button type="button" onClick={()=>setPage('board')}>Go back</button><button className="report-button" type="submit">{current?'Save report':'Publish notice'}</button></div></form></section></div></main>}
+   </section></main>:<main className="report-page"><div className="crumbs"><button onClick={()=>setPage('board')}>← Noticeboard</button><span>/</span><span>Report an item</span></div><div className="report-layout"><div className="report-intro"><span className="seal">✺</span><p className="kicker">HELP THE COMMUNITY</p><h1>{current?'Update your report':'Tell us what happened.'}</h1><p>Small details can help someone recognize their belongings.</p><div className="paper-note">Your report will appear on the public campus noticeboard with the details you provide.</div></div><section className="form-paper"><header><p>NEW NOTICE / FORM 01</p><h2>{current?'Edit report':'Report an item'}</h2></header><form onSubmit={submit}><label>Item title <b>*</b><input value={form.title} onChange={e=>setForm(s=>({...s,title:e.target.value}))} placeholder="e.g., Black backpack"/></label><label>Status <b>*</b><select value={form.status} onChange={e=>setForm(s=>({...s,status:e.target.value}))}><option value="">Choose one</option>{statuses.map(s=><option key={s} value={s}>{cap(s)}</option>)}</select></label><label>Category <b>*</b><select value={form.category} onChange={e=>setForm(s=>({...s,category:e.target.value}))}><option value="">Select item category</option>{categories.slice(1).map(s=><option key={s}>{s}</option>)}</select></label><label>Last known location<input value={form.location} onChange={e=>setForm(s=>({...s,location:e.target.value}))} placeholder="Location (optional)"/></label><label>More details<textarea rows="6" value={form.description} onChange={e=>setForm(s=>({...s,description:e.target.value}))} placeholder="Describe your item"/></label><PhotoUpload key={formSession} photos={form.photos} onChange={photos=>setForm(s=>({...s,photos}))} busy={photosBusy} onBusyChange={setPhotosBusy}/>{error&&<div className="form-error" role="alert">{error}</div>}<div className="form-actions"><button type="button" onClick={()=>setPage('board')}>Go back</button><button className="report-button" type="submit" disabled={photosBusy}>{current?'Save report':'Publish notice'}</button></div></form></section></div></main>}
   {comparison&&<MatchComparison report={comparison} matches={possibleMatches[comparison.id]} onClose={()=>setComparisonId(null)}/>}
   <footer className="pagefooter"><span>FOUND / Campus noticeboard</span><span>Community project • Demo only</span></footer>
  </div>;

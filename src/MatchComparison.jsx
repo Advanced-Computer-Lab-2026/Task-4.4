@@ -1,4 +1,5 @@
 import React, {useEffect, useRef} from 'react';
+import ReportPhotos from './ReportPhotos.jsx';
 
 function ReportDetails({report}) {
   const custody = report.handoverStatus === 'received' && report.collectionPoint
@@ -8,6 +9,7 @@ function ReportDetails({report}) {
   return <article className="comparison-report">
     <span className={`status-tag ${report.status}`}>{report.status}</span>
     <h3><span aria-hidden="true">{report.emoji}</span> {report.title}</h3>
+    {!!report.photos?.length && <ReportPhotos photos={report.photos} title={report.title}/>}
     <dl><dt>Category</dt><dd>{report.category}</dd>
       <dt>Location</dt><dd>{report.location || 'Location not provided'}</dd>
       <dt>Description</dt><dd>{report.description || 'No additional description.'}</dd>
