@@ -3,3 +3,12 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+.board-search{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700;color:#67665e}.board-search input{width:min(280px,28vw);border:1px solid #d7d5ca;border-radius:5px;padding:10px;background:#fff;font-size:12px;color:#555}.status-buttons{display:flex;gap:10px;margin:-5px 0 20px}.status-buttons button{display:flex;align-items:center;gap:12px;border:1px solid #ded8c7;background:#fff;border-radius:6px;padding:10px 14px;color:#555;font-size:11px;font-weight:800;text-transform:capitalize}.status-buttons button span{display:grid;place-items:center;min-width:22px;height:22px;border-radius:50%;background:#f2eee4;color:#8d8069}.status-buttons button.active{background:#293036;border-color:#293036;color:#fff}.status-buttons button.active span{background:#f7d66d;color:#363229}.edit-report{border:1px solid #d7ceb9;border-radius:4px;background:#fffdf5;padding:5px 8px;color:#605742;font-size:10px;font-weight:700}
+@media(max-width:750px){.board-top{align-items:stretch;flex-wrap:wrap}.board-search{order:3;width:100%;flex-direction:column;align-items:stretch}.board-search input{width:100%}.status-buttons{overflow-x:auto}.status-buttons button{flex:0 0 auto}}
+
+.column-head{display:none}
+.form-paper label>span{display:block}
+.board-grid.status-filtered{grid-template-columns:minmax(0,1fr)}
+.status-filtered .sticky-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));align-items:stretch;gap:16px}
+.status-filtered .sticky{min-width:0}
+
