@@ -1,0 +1,24 @@
+Redesign (AA for normal text needs 4.5:1)
+  PASS  14.57:1  Body text on page
+  PASS   6.87:1  Muted text on card
+  PASS   6.35:1  Muted text on page
+  PASS   5.33:1  Input placeholder
+  PASS   5.96:1  Lost pill
+  PASS   5.70:1  Found pill / received strip
+  PASS   6.63:1  Claimed pill / collected strip
+  PASS   6.50:1  Not-confirmed strip
+  PASS   6.57:1  White on Lost tab
+  PASS   6.42:1  White on Found tab
+  PASS   7.63:1  White on Claimed tab
+  PASS  13.08:1  White on primary button
+  PASS   9.42:1  Button text on gold
+  PASS  11.31:1  Soft button
+  PASS   6.57:1  Error text on card
+  PASS   9.16:1  Success notice
+Original, for comparison
+  FAIL   2.28:1  Card category label
+  FAIL   4.06:1  Card description
+  FAIL   3.36:1  Card location
+  FAIL   2.34:1  Column subtitle
+  FAIL   3.68:1  Intro text
+  PASS   4.79:1  Handover note

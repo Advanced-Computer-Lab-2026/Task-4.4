@@ -1,0 +1,152 @@
+
+== Browsing and example records
+PASS  13 example records load  [13 cards]
+PASS  all three statuses are present
+PASS  statuses carry text and an icon, not colour alone
+PASS  reports are newest first
+
+== Searching
+PASS  single word finds both backpacks
+PASS  "black backpack" shows the lost report
+PASS  "black backpack" surfaces the found "Dark backpack" as similar
+PASS  similar reports exclude colour-only hits
+PASS  "blue water bottle" now returns both reports  [original returned 0]
+PASS  search covers collection points  [original returned 0]
+PASS  search covers category  [original returned 0]
+PASS  no results shows a real empty state
+PASS  empty state offers ways forward
+PASS  empty state "Clear" restores all reports
+
+== Filtering
+PASS  Found tab shows only found reports
+PASS  no false "nothing here" message under a filter
+PASS  the active tab is exposed to assistive tech
+PASS  heading states what is shown  [6 found reports]
+PASS  Lost tab shows 6
+PASS  Claimed tab shows 1
+PASS  category filter works
+PASS  tab counts follow the category
+PASS  category and status combine
+PASS  search, category and status combine
+PASS  Clear resets search, category and status
+PASS  category "electronics" still available  [5 reports]
+PASS  category "clothing" still available  [1 reports]
+PASS  category "documents" still available  [1 reports]
+PASS  category "accessories" still available  [3 reports]
+PASS  category "other" still available  [3 reports]
+PASS  "Your reports only" shows the 3 owned reports  [3]
+
+== Lost-item journey: hero path and possible matches
+PASS  "Search found reports" filters to found
+PASS  ...and puts the cursor in the search box
+PASS  your lost report with a match is flagged on the board
+PASS  compare opens as a modal dialog
+PASS  dialog says it is a suggestion, not confirmation
+PASS  dialog shows both reports and what they share
+PASS  next step names the desk that has the item on record
+PASS  Escape closes the dialog
+PASS  focus returns to the Compare button
+PASS  unconfirmed match warns not to go to a desk
+PASS  Close button closes the dialog
+PASS  reports with no match show no match button
+
+== Custody: never implying an item is held unless the data says so
+PASS  Dark backpack: says received at Campus Security Desk
+PASS  Student ID card: says received at Student Services Office
+PASS  Earbuds in blue case: says not confirmed, names no desk
+PASS  Metal water bottle: says received at Campus Security Desk
+PASS  Calculator: says received at Library Reception
+PASS  USB flash drive: says not confirmed, names no desk
+PASS  lost reports show no custody strip
+PASS  claimed report shows collected by owner
+PASS  collection points are listed from the data
+
+== Unsuccessful actions: validation
+PASS  new form starts with no status chosen
+PASS  empty submit names every problem  [["Choose lost, found or claimed.","Title must be at least 2 characters.","Choose a category."]]
+PASS  focus moves to the first problem
+PASS  nothing was saved
+PASS  one-character title is rejected with the exact reason  [["Title must be at least 2 characters."]]
+PASS  field is marked invalid and linked to its message
+PASS  still on the form, nothing saved
+PASS  spaces-only title is rejected
+PASS  error clears as soon as the title is valid
+
+== Duplicate prevention
+PASS  same title and location is rejected (case and spaces ignored)  [["An item with the same title has already been reported at this location. View the existing report"]]
+PASS  nothing was saved
+PASS  duplicate error links to the existing report
+
+== Successful action: lost report
+PASS  path preselects lost
+PASS  location label adapts
+PASS  success message shown
+PASS  confirmation points to possible matches  [Your report has been posted.1 found report looks similar. Compare it on your report below.]
+PASS  filters clear so the new report is visible  [Found filter was active when posting]
+PASS  record keeps the original data shape  [id,title,category,status,location,description,owner,created,emoji,collectionPoint,handoverStatus]
+PASS  record has the original defaults
+
+== Successful action: found report, optional fields left blank
+PASS  found guidance separates reporting from handing in
+PASS  confirmation gives the handover next step  [Your report has been posted.Next step: hand the item in at Campus Security Desk, Student Services Office or Library Reception. Until a handover is on record, your report shows as “Not confirmed at a collection point”.]
+PASS  posted report is visible despite the earlier filter  [original hid it]
+PASS  new found report does not claim to be at a desk
+PASS  it tells the finder to hand it in
+PASS  blank optional fields use the original fallbacks
+PASS  message can be dismissed
+
+== Same title at a different location is still allowed
+PASS  accepted
+
+== Editing is limited to your own reports
+PASS  Edit buttons appear on your reports only  [6 owned]
+PASS  every other report has no Edit control
+PASS  your reports are labelled on the card
+PASS  edit form is filled in
+PASS  edit screen is labelled as an edit
+PASS  handover on record is shown read-only
+PASS  Cancel discards changes
+PASS  Cancel returns to the same place on the board  [1123]
+PASS  saving your own report works
+PASS  edit keeps the handover record
+PASS  edit keeps the original report date  [original overwrote it with Today]
+PASS  a report is not its own duplicate on edit
+PASS  duplicate check also applies when editing
+
+== localStorage persistence
+PASS  new reports survive a refresh
+PASS  edits survive a refresh
+PASS  stored data is unchanged by the refresh
+
+== Reset demo
+PASS  Reset asks first and focuses the confirm button
+PASS  "Keep my data" leaves reports alone
+PASS  Reset restores the exact example records
+PASS  Reset clears filters and shows 13
+PASS  Reset confirms what happened
+PASS  reset state survives a refresh
+
+== Resilience and keyboard
+PASS  corrupt stored data falls back to the example records
+PASS  Tab moves from search to the category filter
+PASS  opening the form moves focus to its heading
+PASS  skip link target exists on the form page
+PASS  Enter submits and validates the form  [["Choose lost, found or claimed.","Choose a category."]]
+
+== Responsive layouts: no horizontal overflow, usable targets
+PASS  320px: board, dialog and form fit  [board true, dialog true, form true]
+PASS  375px: board, dialog and form fit  [board true, dialog true, form true]
+PASS  390px: board, dialog and form fit  [board true, dialog true, form true]
+PASS  768px: board, dialog and form fit  [board true, dialog true, form true]
+PASS  1024px: board, dialog and form fit  [board true, dialog true, form true]
+PASS  1440px: board, dialog and form fit  [board true, dialog true, form true]
+PASS  1920px: board, dialog and form fit  [board true, dialog true, form true]
+PASS  touch controls are at least 40px tall at 390px  [[]]
+PASS  smallest text is at least 13px
+PASS  first report on mobile is higher than the original 989px  [669px]
+PASS  first found report on mobile is far above the original 2480px  [669px]
+
+== Console
+PASS  no errors or warnings in the browser console  [[]]
+
+118 passed, 0 failed
