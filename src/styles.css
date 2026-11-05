@@ -3,3 +3,10 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+.form-paper input.invalid,.form-paper select.invalid,.form-paper textarea.invalid{border-color:#ba523e;border-width:2px}
+.form-paper label.has-error{margin-bottom:6px}
+.field-error{color:#ba523e;font-size:12px;margin:0 0 19px}
+.field-error p{margin:0 0 6px}
+.field-error button,.error-summary button{background:none;border:0;padding:0;color:#ba523e;font:inherit;text-decoration:underline;cursor:pointer;text-align:left}
+.error-summary{background:#fff0ee;color:#ba523e;border-left:3px solid #ba523e;padding:12px;margin-bottom:19px;font-size:12px}
+.error-summary ul{margin:6px 0 0;padding-left:18px}
