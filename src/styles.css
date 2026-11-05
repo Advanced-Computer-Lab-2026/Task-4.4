@@ -3,3 +3,13 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+.claim-overlay{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:20px;background:rgba(37,44,50,.48)}
+.claim-dialog{width:min(100%,480px);background:#fffdf7;border:1px solid #e2ded3;border-radius:9px;padding:28px;box-shadow:5px 7px #cfc8b8}
+.claim-dialog h2{font:700 26px/1.15 'Space Grotesk';margin:10px 0}
+.claim-dialog>p:not(.kicker){font-size:13px;line-height:1.6;color:#67665e;margin:0 0 20px}
+.claim-dialog label{display:flex;flex-direction:column;gap:7px;font-size:11px;font-weight:700;color:#67665e}
+.claim-dialog textarea{width:100%;resize:vertical;border:1px solid #d7d5ca;border-radius:5px;padding:11px;background:#fff;font-size:12px;color:#555}
+.claim-dialog .claim-check{flex-direction:row;align-items:flex-start;margin-top:16px;line-height:1.4}
+.claim-dialog .claim-check input{margin-top:2px}
+.claim-dialog .form-actions{margin-top:24px}
+.claim-dialog button:disabled{cursor:not-allowed;opacity:.5}
