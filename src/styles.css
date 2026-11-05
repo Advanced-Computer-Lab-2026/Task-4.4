@@ -3,3 +3,80 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* UX improvements: live filter feedback, clearer empty states and handover status. */
+.filter-feedback{font-size:10px;color:#827d74;margin:-3px 0 13px;}
+.filter-feedback strong{color:#293036;font-size:12px;}
+.filterbuttons button:disabled{opacity:.45;cursor:not-allowed;}
+.filterbuttons button{width:100%;}
+.no-results{background:#fff;border:1px dashed #d8d0ba;border-radius:8px;padding:55px 25px;text-align:center;max-width:650px;margin:30px auto;}
+.no-results-icon{font-size:35px;color:#bd7635;}
+.no-results h3{font:700 21px 'Space Grotesk';margin:12px 0 8px;}
+.no-results p{font-size:12px;line-height:1.6;color:#827d74;max-width:390px;margin:0 auto 18px;}
+.no-results button{background:#293036;color:#fff;border:0;border-radius:4px;padding:11px 16px;font-size:11px;font-weight:700;}
+.handover-note{display:flex;flex-direction:column;gap:3px;border-radius:4px;padding:8px 9px;margin:5px 0 11px;background:#fff0dc;color:#805b2e;}
+.handover-note strong{font-size:8px;letter-spacing:.07em;}
+.handover-note span{font-size:9px;line-height:1.4;}
+.handover-note.received{background:#e5f3e9;color:#37664b;}
+.handover-note.released{background:#e9edf7;color:#4c5e83;}
+.form-paper input[aria-invalid="true"],.form-paper select[aria-invalid="true"]{border-color:#ba523e;background:#fff8f6;box-shadow:0 0 0 2px #ba523e18;}
+.form-error{line-height:1.5;}
+@media(max-width:750px){.no-results{padding:35px 18px;margin:20px 0;}}
+
+/* Consistent notice-card sizing: keep every card aligned while preserving its content. */
+.sticky {
+  display: flex;
+  flex-direction: column;
+  height: 270px;
+  min-height: 270px;
+  transform: none !important;
+}
+.sticky-emoji {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  margin: 11px 0 7px;
+  flex: 0 0 48px;
+}
+.sticky h3 {
+  min-height: 19px;
+  margin: 5px 0 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sticky > p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: 30px;
+  max-height: 30px;
+  margin: 0 0 8px;
+}
+.handover-note {
+  min-height: 46px;
+  max-height: 46px;
+  justify-content: center;
+  overflow: hidden;
+  margin: 2px 0 8px;
+}
+.sticky-bottom {
+  margin-top: auto;
+  min-height: 27px;
+  align-items: center;
+}
+.sticky-bottom > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 475px) {
+  .sticky {
+    height: 270px;
+    min-height: 270px;
+  }
+}
+
+/* Contextual location guidance in the report form */
+.form-paper .field-hint{font-size:10px;line-height:1.5;font-weight:400;color:#918979;margin-top:-2px}
