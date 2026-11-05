@@ -3,3 +3,26 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* UX improvement 1: filtering is immediate, so show the live result count beside Clear filters. */
+.filter-results{align-self:center;font-size:10px;font-weight:700;color:#81796e;line-height:1.4;}
+.filterbuttons button{background:#fff;border-color:#d6d5cd;}
+.filterbuttons button:hover{background:#f5f1e6;border-color:#c9b98f;}
+.no-results{margin-top:20px;padding:28px;border:1px dashed #cfc6b3;border-radius:8px;background:#fffdf7;display:flex;flex-direction:column;align-items:flex-start;gap:9px;color:#716b60;font-size:12px;}
+.no-results strong{font:700 17px 'Space Grotesk';color:#252c32;}
+.no-results button{border:0;background:#ffdb64;border-radius:4px;padding:9px 12px;font-size:11px;font-weight:700;margin-top:3px;}
+
+/* UX improvement 2: specific validation is attached to the field that needs attention. */
+.form-paper label.has-error{color:#a83e31;}
+.form-paper input[aria-invalid="true"],.form-paper select[aria-invalid="true"]{border:1.5px solid #c84d3d;background:#fff9f8;outline:2px solid #c84d3d20;}
+.field-error{display:block;color:#b34335;font-size:11px;font-weight:600;line-height:1.4;margin-top:-2px;}
+.form-error{background:#fff0ee;color:#a83e31;border-left:3px solid #ba523e;padding:12px;margin-bottom:13px;font-size:12px;line-height:1.5;}
+
+/* UX improvement 3: make the physical handover state clear without relying on color alone. */
+.handover-panel{display:flex;flex-direction:column;gap:5px;padding:10px 11px;margin:0 0 13px;border-radius:5px;font-size:10px;line-height:1.45;border-left:3px solid;}
+.handover-panel strong{font-size:10px;font-weight:800;}
+.handover-panel span{color:#625f56;}
+.handover-panel.is-received{background:#e8f4e9;border-color:#39845a;color:#246440;}
+.handover-panel.is-reported{background:#fff2dc;border-color:#c7832f;color:#85551c;}
+.handover-panel.is-released{background:#edf1fa;border-color:#607da9;color:#405b86;}
+@media(max-width:475px){.filter-results{font-size:9px}.filterbuttons{align-items:center}.handover-panel{font-size:10px}}
