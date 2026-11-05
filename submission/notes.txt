@@ -19,20 +19,22 @@ Student-selected improvements and justifications
    Before: large gaps and uneven grouping made navigation feel disconnected.
    After: a centered navigation group, aligned logo and posting action, consistent
    control heights, and reduced padding make the actions easier to scan and place
-   notices closer to the top. All existing button handlers are unchanged.
+   notices closer to the top. Navigation opens the corresponding status tab.
    Trade-off considered: a second navigation row uses more desktop height. It is
    retained only at the existing narrow-screen breakpoint, where wrapping helps.
 
-3. Bound each status column and clearly indicate that more notices are available.
-   Goal: browse many notices without losing the context of the other status groups.
-   Before: all cards expanded the whole page, pushing later content far below it.
-   After: each outlined column shows at most about three cards, with a smaller limit
-   on short screens. Overflow has a persistent themed scrollbar on the right and a
-   Scroll for more hint. The rail supports dragging, track clicks, arrows, Page Up,
-   Page Down, Home and End; the report region also supports normal scrolling.
-   Headings and counts stay outside the scroll area. Short lists have no extra rail.
-   Trade-off considered: pagination avoids nested scrolling, but adds page changes
-   and slows cross-column comparison. The student selected scroll boxes instead.
+3. Separate statuses into tabs and paginate the reports.
+   Goal: browse many notices without an ever-growing list or nested scroll boxes.
+   Before: each status column expanded the page with every matching report.
+   After: Lost, Found and Claimed each have their own tab, with three reports per
+   page and Previous/Next controls. Counts reflect the current search/category,
+   and the visible range and page number explain where the student is in the list.
+   Search, category changes and tab changes return to page one. Empty lists and
+   first/last pages disable unavailable paging actions. The status tabs replace
+   the redundant status dropdown and support arrows, Home and End for keyboards.
+   Trade-off considered: independent scroll boxes keep columns visible together,
+   but nested scrolling is harder to navigate. The student chose separate tabs
+   with explicit pages, and the scroll-box component and styles were removed.
 
 Additional improvement: show the actual validation reason.
    The validator already detected a short title, missing category, missing status
@@ -42,14 +44,14 @@ Additional improvement: show the actual validation reason.
 AI suggestion refined/rejected by the student
    AI suggested replacing the red backpack emoji with a neutral outline. The student
    rejected that change and chose to preserve all existing emojis, while keeping the
-   possible-match comparison. AI also suggested phone pagination; the final design
-   retains responsive scroll boxes instead.
+   possible-match comparison. The student refined the scrolling design into
+   status tabs with three reports per page on all screen sizes.
 
 Demonstration (use Reset demo data first if needed)
    1. Search for backpack; open Possible match on Black backpack. Compare the details
       with Dark backpack and note its receipt at Campus Security Desk.
-   2. Clear filters. Scroll the Found column to USB flash drive using its right rail.
-      Show that the Lost column does not move. Use Home/End on the focused rail.
+   2. Clear filters. Select Found and use Next to reach USB flash drive on page two.
+      Select Lost to browse only lost reports. Try the Claimed tab as well.
    3. Post a report with a new title, Found status and a category. Location and details
       may remain blank. Show the posted notice and refresh to demonstrate persistence.
    4. Unsuccessful action: submit an empty report to see the exact title error. For a
@@ -59,26 +61,22 @@ Demonstration (use Reset demo data first if needed)
       edit action. Reset restores all 13 original records.
 
 Screenshots
-   Final right-scrollbar revision:
-   screenshots/after-scrollbar.jpg: complete board with scrollbars on the right.
-   screenshots/after-possible-match.jpg: backpack search showing both Possible
-      match buttons and the corresponding lost/found notices.
-   screenshots/after-error-reason.jpg: the specific error from an empty submission.
-   The matching before-scrollbar.jpg, before-possible-match.jpg and
-   before-error-reason.jpg files were freshly captured from the unchanged main
-   branch at the same browser width and with the same report/search/form states.
-   These six final screenshots are committed only to codex/lost-found-usability.
+   The six existing before/after screenshots document the previous scroll-box
+   iteration. They were left unchanged when the student requested that screenshot
+   work stop. Current tab/pagination behavior is covered by browser-checks.json.
 
 Verification
-   npm test: five matching tests, including rejected unrelated/claimed/same-status
-      candidates, optional fields, plural/case normalization and recalculation.
+   npm test: five matching tests and four pagination tests. Pagination covers
+      complete report coverage, exact boundaries, narrowed filters and empty lists.
    npm run build: production bundle builds successfully.
-   browser-checks.json: recorded passing browser checks for forms, persistence,
-      ownership, search/filters, unchanged navigation, scrollbars, modal keyboard
-      behavior and 1600/1024/390px layouts. No browser warning/error logs were seen.
+   browser-checks.json: 36 passing checks for tabs, paging, keyboard navigation,
+      filtering, matching, forms, ownership, persistence and responsive layouts.
+      No browser warning/error logs were seen.
    Test-only browser data was reset to the original 13 notices after testing.
 
 Compatibility and constraints
    No backend, new runtime dependencies, storage-key migration or API changes.
    Matching is derived from current records, including records outside active filters.
    Existing search, filtering, ownership checks, create/edit and reset remain intact.
+
+Branch: ui-changes (renamed from codex/lost-found-usability).
