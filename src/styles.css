@@ -3,3 +3,101 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+
+/* Improvement 1: clearer filtering */
+
+.filter-count {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #57594f;
+  margin: 12px 0;
+}
+
+.filterbuttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f1eee5;
+}
+
+.no-results {
+  border: 1px dashed #d0bc91;
+  background: #fff9e9;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 18px;
+}
+
+.no-results strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.no-results p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.no-results button {
+  background: #293036;
+  color: white;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.board-grid.single-status {
+  grid-template-columns: minmax(0, 380px);
+}
+
+/* Improvement 2: recovery guidance */
+
+.recovery-info {
+  padding: 10px 12px;
+  margin: 12px 0;
+  border-radius: 5px;
+  border-left: 4px solid;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.recovery-info strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.recovery-info span {
+  display: block;
+  color: #4c5751;
+}
+
+.recovery-info.is-received {
+  background: #eaf7f0;
+  border-left-color: #4b9571;
+}
+
+.recovery-info.is-reported {
+  background: #fff3e3;
+  border-left-color: #d19339;
+}
+
+.recovery-info.is-claimed {
+  background: #edf0f7;
+  border-left-color: #7c90b4;
+}
+
+/* Improvement 3: field guidance */
+
+.field-hint {
+  color: #68655d;
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+@media (max-width: 750px) {
+  .board-grid.single-status {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
