@@ -3,3 +3,217 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+.report-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.report-options .report-button {
+  white-space: nowrap;
+}
+.report-options {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+
+.report-options .report-button {
+ white-space: nowrap;
+ transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.report-options .lost-button {
+ background-color: #A84D3F;
+ color: #FFFFFF;
+ border: 1px solid #A84D3F;
+}
+
+.report-options .found-button {
+ background-color: #537C65;
+ color: #FFFFFF;
+ border: 1px solid #537C65;
+}
+
+.report-options .lost-button:hover {
+ background-color: #873B30;
+}
+
+.report-options .found-button:hover {
+ background-color: #3F604D;
+}
+
+.report-options .report-button:focus-visible {
+ outline: 3px solid #D5A34A;
+ outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+ .report-options {
+  flex-wrap: wrap;
+ }
+}
+
+.category-tag {
+ display: inline-block;
+ padding: 4px 9px;
+ border-radius: 5px;
+ font-size: 11px;
+ font-weight: 700;
+ text-transform: uppercase;
+}
+
+.category-tag.electronics {
+ background-color: #DCE8ED;
+ color: #345F73;
+}
+
+.category-tag.clothing {
+ background-color: #E5DCEF;
+ color: #694F80;
+}
+
+.category-tag.documents {
+ background-color: #F2E3C5;
+ color: #805D27;
+}
+
+.category-tag.accessories {
+ background-color: #E9D8CF;
+ color: #8A4D3F;
+}
+
+.category-tag.other {
+ background-color: #DFE8D9;
+ color: #4E6846;
+}
+/* Full card background colors based on category */
+
+.sticky.electronics {
+ background-color: #DCE8ED;
+}
+
+.sticky.clothing {
+ background-color: #E5DCEF;
+}
+
+.sticky.documents {
+ background-color: #F2E3C5;
+}
+
+.sticky.accessories {
+ background-color: #E9D8CF;
+}
+
+.sticky.other {
+ background-color: #DFE8D9;
+}
+.item-location {
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+ margin: 12px 0;
+}
+
+.item-location strong {
+ font-size: 12px;
+ font-weight: 700;
+}
+
+.item-location span {
+ font-size: 13px;
+ line-height: 1.5;
+}
+
+.sticky-bottom {
+ margin-top: auto;
+ padding-top: 12px;
+ border-top: 1px solid rgba(50, 45, 35, 0.18);
+}
+
+.sticky-bottom span {
+ font-size: 12px;
+ font-weight: 600;
+}
+.handover-note {
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+ padding: 12px;
+ margin: 12px 0;
+ border-radius: 7px;
+ font-size: 12px;
+ line-height: 1.5;
+}
+
+.handover-note strong {
+ font-size: 13px;
+ font-weight: 700;
+}
+
+.handover-note.handed-in {
+ background-color: #D5E7D6;
+ border: 1px solid #83AB89;
+ color: #315D3B;
+}
+
+.handover-note.collected {
+ background-color: #E2E5D8;
+ border: 1px solid #A4AC8A;
+ color: #48583D;
+}
+
+.handover-note.not-handed-in {
+ background-color: #F4E5CE;
+ border: 1px solid #D4B47B;
+ color: #76552C;
+}
+.edit-report-button {
+ background-color: transparent;
+ border: 1px solid #8A8174;
+ border-radius: 6px;
+ padding: 6px 10px;
+ color: #51483D;
+ font-size: 12px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: background-color 0.2s;
+}
+
+.edit-report-button:hover {
+ background-color: rgba(80, 70, 55, 0.1);
+}
+
+.handover-note {
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+ padding: 12px;
+ margin: 12px 0;
+ border-radius: 7px;
+ font-size: 12px;
+ line-height: 1.5;
+}
+
+.handover-note strong {
+ font-size: 13px;
+ font-weight: 700;
+}
+
+.handover-note.handed-in {
+ background-color: #D5E7D6;
+ border: 1px solid #83AB89;
+ color: #315D3B;
+}
+
+.handover-note.collected {
+ background-color: #E2E5D8;
+ border: 1px solid #A4AC8A;
+ color: #48583D;
+}
+
+.handover-note.not-handed-in {
+ background-color: #F4E5CE;
+ border: 1px solid #D4B47B;
+ color: #76552C;
+}
