@@ -3,3 +3,21 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+.sticky{display:flex;flex-direction:column;height:300px;min-height:0}
+.sticky:nth-child(2n),.sticky:nth-child(3n){transform:none}
+.sticky-emoji{height:56px;flex:0 0 56px;display:flex;align-items:center;margin:10px 0 8px}
+.sticky h3{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:2.4em}
+.sticky p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;height:45px;min-height:45px;margin-bottom:8px}
+.handover-note{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;height:30px;min-height:30px;margin:2px 0 8px}
+.sticky-bottom{margin-top:auto;min-width:0}
+.sticky-bottom span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sticky.lost{background:#f9b0a6;border-color:#f9b0a6}
+.sticky.found{background:#a8d7c6;border-color:#a8d7c6}
+.sticky.claimed{background:#cad6ed;border-color:#cad6ed}
+.board-filters{display:grid;grid-template-columns:minmax(180px,2fr) minmax(130px,1fr) minmax(130px,1fr) auto;align-items:end;gap:12px;margin:0 0 22px}
+.board-filters label{display:flex;flex-direction:column;gap:7px;min-width:0;font-size:11px;font-weight:700;color:#67665e}
+.board-filters input,.board-filters select{width:100%;min-width:0;border:1px solid #d7d5ca;border-radius:5px;padding:11px;background:#fff;font-size:12px;color:#555}
+.board-filters .filterbuttons{padding-bottom:0}
+@media(max-width:750px){.board-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.board-filters label:first-child{grid-column:1/-1}.board-filters .filterbuttons{grid-column:1/-1}}
+@media(max-width:475px){.board-filters{grid-template-columns:1fr}}
