@@ -3,3 +3,34 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+.sticky{display:flex;flex:0 0 300px;flex-direction:column;height:300px;min-height:300px}
+.sticky:nth-child(2n),.sticky:nth-child(3n){transform:none}
+.sticky p,.handover-note,.sticky-bottom>span{display:block;overflow:visible}
+.sticky[role="button"]{cursor:pointer}
+.sticky[role="button"]:hover{box-shadow:4px 7px 0 #d8d0bc88}
+.sticky[role="button"]:focus-visible{outline:3px solid #bd7635;outline-offset:3px}
+.item-dialog-backdrop{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:20px;background:#252c3280}
+.item-dialog{position:relative;width:min(100%,520px);max-height:min(85vh,700px);overflow-y:auto;padding:32px;background:#fff9df;border:1px solid #efe5c2;border-radius:8px;box-shadow:8px 12px #0002}
+.item-dialog-close{position:absolute;top:12px;right:14px;width:34px;height:34px;border:0;border-radius:50%;background:#f1e8ce;color:#625b4d;font-size:23px}
+.item-dialog-emoji{margin:18px 0;font-size:48px}
+.item-dialog h2{margin:0 0 10px;font:700 26px 'Space Grotesk',sans-serif}
+.item-dialog-description{color:#81796e;line-height:1.6}
+.item-dialog dl{margin:24px 0 0;border-top:1px dashed #d4c6a2}
+.item-dialog dl>div{padding:12px 0;border-bottom:1px dashed #d4c6a2}
+.item-dialog dt{margin-bottom:5px;color:#9a896c;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.item-dialog dd{margin:0;color:#625b4d;font-size:13px}
+.sticky.lost{background:#fff0ed;border-color:#f1d0c9}
+.sticky.found{background:#eff8f0;border-color:#d8e9d9}
+.sticky.claimed{background:#eef2fb;border-color:#d6deef}
+
+.board-top{align-items:flex-start;gap:18px;flex-wrap:wrap}
+.board-tools{display:flex;flex:1 1 480px;flex-direction:column;align-items:flex-end;gap:9px}
+.filter-toolbar{display:flex;justify-content:flex-end;align-items:center;gap:7px;flex-wrap:wrap;width:100%}
+.filter-toolbar input,.filter-toolbar select{height:36px;border:1px solid #d7d5ca;border-radius:5px;background:#fff;padding:0 10px;font-size:11px;color:#555}
+.filter-toolbar input{flex:1 1 145px;min-width:120px}
+.filter-toolbar select{flex:0 1 130px;min-width:105px}
+.filter-toolbar button{height:36px;padding:0 11px;border:1px solid #d6d5cd;border-radius:4px;background:#fff;font-size:11px}
+.filter-toolbar button:first-of-type{background:#f7d66d;border-color:#f2d471}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:750px){.board-tools{flex-basis:100%;align-items:stretch}.filter-toolbar{justify-content:flex-start}.filter-toolbar input{flex-basis:100%}.filter-toolbar select{flex:1 1 130px}.time-note{align-self:flex-end}}
