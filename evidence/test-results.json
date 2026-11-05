@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "Required fields display specific errors and focus the title",
+    "Create found report",
+    "New found report has no invented staff receipt",
+    "Report persists after reload",
+    "Live case-insensitive search and found filter",
+    "Received report provides collection point",
+    "No-results state",
+    "Clear filters restores every report",
+    "Case-insensitive duplicate prevention",
+    "Failed submission retains entries",
+    "Other students have no edit action",
+    "My reports filter",
+    "Edit own report and status",
+    "Existing collection metadata preserved",
+    "Optional fields may be blank",
+    "Reset restores 13 seed records",
+    "Combined category and status filters",
+    "Mobile has no horizontal overflow",
+    "Mobile form has no horizontal overflow",
+    "No uncaught browser errors"
+  ],
+  "uncaughtErrors": []
+}
