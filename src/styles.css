@@ -40,3 +40,17 @@
 .header-links button:focus-visible{outline:2px solid #262c30;outline-offset:2px}
 @media(max-width:1130px){.header-links{gap:7px}.header-links button{padding:10px 12px}}
 @media(max-width:750px){.header-links{gap:8px}.header-links button{flex:1;padding:10px 6px;font-size:11px}}
+
+/* Report form: asterisk sits inline with its label; title + category share a row; tighter vertical rhythm so the whole card fits on screen. */
+.field-label{display:inline-flex;align-items:baseline;gap:4px}
+.form-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px}
+.form-row label{min-width:0}
+.form-row input,.form-row select{width:100%}
+.form-paper{padding:26px 30px}
+.form-paper header{margin-bottom:18px;padding-bottom:12px}
+.form-paper header p{margin:0}
+.form-paper label{margin-bottom:15px;gap:6px}
+.form-paper textarea{resize:vertical}
+.form-actions{padding-top:14px}
+.report-layout{margin-top:22px}
+@media(max-width:475px){.form-row{grid-template-columns:1fr;gap:0}}
