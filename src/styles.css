@@ -3,3 +3,16 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+.filter-feedback{margin:2px 0 0;color:#575c54;font-size:12px;font-weight:700}
+.clear-filters{margin-top:10px;padding:0;border:0;background:none;color:#715429;text-decoration:underline;font-size:11px;font-weight:700}
+.no-results{border:1px dashed #c9bda4;border-radius:8px;background:#fffdf6;padding:32px;text-align:center}
+.no-results h3{margin:0 0 8px;font:700 19px 'Space Grotesk'}
+.no-results p{margin:0 0 18px;color:#716b60;font-size:13px;line-height:1.6}
+.no-results button{border:0;border-radius:4px;background:#f7d66d;padding:11px 15px;font-size:12px;font-weight:800}
+.handover-note{display:table;max-width:100%;margin:2px 0 12px;padding:7px 9px;border-radius:5px;font-weight:700}
+.handover-note.received{background:#e2f1e7;color:#235d41}
+.handover-note.reported{background:#fff0d6;color:#80520e}
+.handover-note.released{background:#e9edf7;color:#3e527b}
+.field-hint{margin:-9px 0 20px;padding:10px 12px;border-left:3px solid #d6aa54;background:#faf6e9;color:#625b4d;font-size:11px;line-height:1.55}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #a55f22;outline-offset:2px}
