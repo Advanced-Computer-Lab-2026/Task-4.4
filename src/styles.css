@@ -3,3 +3,46 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Focused usability improvements, following the existing noticeboard palette. */
+.sticky-top{align-items:center;flex-wrap:wrap;color:#6f6044}
+.ownership{font-size:10px;letter-spacing:0;text-transform:none;color:#334c3e;background:#e4eddf;border:1px solid #b9cbb0;border-radius:3px;padding:4px 7px}
+.edit-report{display:block;margin:4px 0 15px;border:1px solid #b6ad96;background:transparent;border-radius:4px;padding:8px 11px;font-size:12px;font-weight:700;color:#343a34;min-height:36px}
+.edit-report:hover{background:#fffdf4}
+.handover-note{padding:12px;margin:0 0 14px;border-left:3px solid #657d68;background:#eaf0e7;color:#344a38;font-size:12px}
+.handover-note.unconfirmed{background:#f9edd3;border-color:#9d7830;color:#624b21}
+.handover-note strong{display:block;font-size:12px;line-height:1.5}
+.sticky .handover-note p{margin:7px 0 0;min-height:0;font-size:12px;line-height:1.55;color:inherit}
+.form-paper form>label{display:block;margin:20px 0 8px}
+.form-paper form>input,.form-paper form>select,.form-paper form>textarea{display:block;width:100%;font-size:14px}
+.form-paper [aria-invalid="true"]{border:2px solid #ac392c}
+.field-error{margin:7px 0 14px;color:#a13025;font-size:12px;line-height:1.5}
+.field-hint,.form-help{font-size:12px;color:#645f54;line-height:1.5;margin:7px 0 14px}
+.handover-help{margin:15px 0;padding:15px;background:#f7f3e6;border-left:3px solid #9d8248;font-size:13px;line-height:1.6;color:#514b3a}
+.handover-help p{margin:8px 0 0}
+.form-paper .form-actions{margin-top:24px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #365e93;outline-offset:3px}
+
+.filter-hint{font-size:12px;line-height:1.5;color:#645f54;margin:14px 0 0}
+.status-tabs{display:flex;gap:6px;border-bottom:1px solid #d8d5cb;margin:0 0 22px;flex-wrap:wrap}
+.status-tabs button{border:0;border-bottom:3px solid transparent;background:transparent;color:#66665d;font-size:14px;padding:12px 14px;min-height:44px;font-weight:600}
+.status-tabs button[aria-selected="true"]{color:#252c32;border-bottom-color:#a97824;background:#f0eadb}
+.status-tabs button:hover{background:#efede5}
+.status-tabs button span{display:inline-block;font-size:12px;margin-left:5px;color:#66665d}
+.status-tabs .all-tab{margin-left:auto;font-weight:400}
+.reports-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;align-items:stretch}
+.report-card{display:flex;flex-direction:column;min-width:0;background:#fffefa;border:1px solid #dad7cc;border-radius:6px;padding:22px;overflow-wrap:anywhere}
+.card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;color:#67665d;min-height:27px}
+.card-meta>.ownership{margin-left:auto}
+.card-status{border:1px solid #d6d3c8;border-radius:3px;padding:3px 6px;font-size:10px}
+.report-card h3{font:700 20px/1.3 'Space Grotesk',sans-serif;margin:12px 0 8px;color:#252c32}
+.item-location{font-size:13px;color:#595d56;margin:0 0 13px;font-weight:600;line-height:1.5}
+.item-description{font-size:14px;line-height:1.65;color:#62645e;margin:0 0 20px}
+.report-card .handover-note{font-size:12px;margin:0 0 18px}
+.report-card .handover-note p{font-size:12px;line-height:1.6;margin:7px 0 0}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #e7e4db;padding-top:15px;margin-top:auto;font-size:11px;color:#74756b}
+.card-footer .edit-report{display:inline-block;margin:0;min-height:40px}
+.empty-results{border:1px dashed #cdc7b7;border-radius:6px;padding:35px 24px;background:#f9f7ef;color:#5c5f57}
+.empty-results h3{font-size:18px;margin:0 0 10px}
+.empty-results p{font-size:14px;line-height:1.6;margin:0}
+@media(max-width:475px){.status-tabs{gap:0}.status-tabs button{padding:11px 9px;font-size:13px}.report-card{padding:18px}.board-top h2{font-size:26px}}
