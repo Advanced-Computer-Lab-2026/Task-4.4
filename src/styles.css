@@ -23,7 +23,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   outline-offset: 3px;
 }
 
-/* A permanent left-hand rail makes overflow visible even with OS overlay scrollbars. */
+/* A permanent right-hand rail makes overflow visible even with OS overlay scrollbars. */
 .column-panel { min-width: 0; }
 .scroll-frame { position: relative; border: 1px solid #d8cfb8; border-radius: 9px; background: #ede8dc; }
 .report-scroll {
@@ -36,14 +36,14 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 .report-scroll::-webkit-scrollbar { display: none; }
 .report-scroll:focus-visible { outline: 3px solid #886827; outline-offset: 3px; }
-.has-overflow .report-scroll { margin-left: 20px; }
+.has-overflow .report-scroll { margin-right: 20px; }
 .sticky-list { padding: 12px; }
 .sticky-list > * { flex-shrink: 0; }
 .sticky { display: flex; flex-direction: column; }
 .sticky .sticky-emoji { align-self: flex-start; }
 .scroll-rail {
   position: absolute;
-  left: 7px;
+  right: 7px;
   top: 12px;
   bottom: 12px;
   width: 11px;

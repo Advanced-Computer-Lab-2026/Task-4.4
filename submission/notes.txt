@@ -27,7 +27,7 @@ Student-selected improvements and justifications
    Goal: browse many notices without losing the context of the other status groups.
    Before: all cards expanded the whole page, pushing later content far below it.
    After: each outlined column shows at most about three cards, with a smaller limit
-   on short screens. Overflow has a persistent themed scrollbar on the left and a
+   on short screens. Overflow has a persistent themed scrollbar on the right and a
    Scroll for more hint. The rail supports dragging, track clicks, arrows, Page Up,
    Page Down, Home and End; the report region also supports normal scrolling.
    Headings and counts stay outside the scroll area. Short lists have no extra rail.
@@ -48,7 +48,7 @@ AI suggestion refined/rejected by the student
 Demonstration (use Reset demo data first if needed)
    1. Search for backpack; open Possible match on Black backpack. Compare the details
       with Dark backpack and note its receipt at Campus Security Desk.
-   2. Clear filters. Scroll the Found column to USB flash drive using its left rail.
+   2. Clear filters. Scroll the Found column to USB flash drive using its right rail.
       Show that the Lost column does not move. Use Home/End on the focused rail.
    3. Post a report with a new title, Found status and a category. Location and details
       may remain blank. Show the posted notice and refresh to demonstrate persistence.
@@ -59,6 +59,12 @@ Demonstration (use Reset demo data first if needed)
       edit action. Reset restores all 13 original records.
 
 Screenshots
+   Final right-scrollbar revision:
+   screenshots/after-scrollbar.jpg: complete board with scrollbars on the right.
+   screenshots/after-possible-match.jpg: backpack search showing both Possible
+      match buttons and the corresponding lost/found notices.
+   screenshots/after-error-reason.jpg: the specific error from an empty submission.
+   The screenshots below document the earlier left-scrollbar iteration.
    screenshots/before-board.jpg and screenshots/after-board.jpg: same default
       1280px-wide browser, showing the header and board before/after.
    screenshots/before-validation.jpg and screenshots/after-validation.jpg: the same
