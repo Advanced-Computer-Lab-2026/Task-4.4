@@ -89,3 +89,48 @@
 @media(max-width:1200px){.header .slogan{display:none}}
 @media(max-width:750px){.header-actions{grid-column:auto;flex-wrap:wrap}}
 .label-text{display:inline}
+
+/* ================= TA feedback pass ================= */
+/* #1 Report form: one centred column, no empty intro column, compact two-column fields */
+.report-page{max-width:720px;padding:22px 20px 40px}
+.report-layout{display:block;margin-top:16px}
+.form-paper{padding:28px 32px;box-shadow:0 2px 0 #e4decb}
+.form-paper header{margin-bottom:20px;padding-bottom:14px}
+.form-paper h1{font:700 24px 'Space Grotesk';margin:0 0 6px}
+.form-sub{margin:0;font-size:12px;line-height:1.5;color:#7a7366}
+.form-paper form{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}
+.form-paper form>*{grid-column:1/-1}
+.form-paper form>label:has(#field-category),.form-paper form>label:has(#field-status),.form-paper form>.status-fixed{grid-column:auto}
+.form-paper label{margin-bottom:16px}
+.status-fixed{flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:16px}
+.status-pill{padding:11px 14px;border-radius:3px;width:100%;box-sizing:border-box}
+.form-paper textarea{min-height:96px}
+@media(max-width:560px){.form-paper{padding:20px}.form-paper form{grid-template-columns:1fr}.form-paper form>*{grid-column:1/-1!important}}
+
+/* #2 Cards: same size, no tilt, content in fixed slots */
+.board-grid{align-items:stretch;grid-auto-rows:1fr}
+.sticky,.sticky:nth-child(2n),.sticky:nth-child(3n){transform:none;display:flex;flex-direction:column;min-height:0;box-shadow:0 1px 2px #0000000d}
+.sticky p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:30px}
+.sticky-emoji{font-size:32px;margin:10px 0 4px}
+.sticky-bottom{margin-top:auto}
+.handover-note{margin:0 0 10px}
+
+/* #3 "I found this": quiet secondary button that matches the rest of the UI */
+.found-this,.found-this:hover{background:#fff;color:#293036;border:1px solid #cfc8b8;border-radius:4px;padding:7px 12px;font-size:11px;font-weight:700}
+.found-this:hover{border-color:#293036}
+
+/* #4 Less colour: neutral cards, status shown by a thin accent + label only */
+.sticky.status-lost,.sticky.status-found,.sticky.status-claimed{background:#fff;border:1px solid #e6e1d6;border-left-width:4px}
+.sticky.status-lost{border-left-color:#d9796a}
+.sticky.status-found{border-left-color:#5fa67a}
+.sticky.status-claimed{border-left-color:#9b87cf}
+.sticky-top{color:#9a9488}
+.sticky-bottom{border-top-color:#ebe6db;color:#8a8478}
+.status-tab.lost:not(.active),.status-tab.found:not(.active),.status-tab.claimed:not(.active){border-color:#ded8c7}
+.side-message{background:#fff;border-color:#e2ded3}
+.side-message p{color:#7a7366}
+.filters h1 em{color:inherit;opacity:.7}
+.kicker{color:#8a8478}
+.found-for{background:#f7f5ef;border-left-color:#5fa67a;color:#4d504c}
+.status-pill.lost,.status-pill.found{background:#f7f5ef;color:#293036}
+.form-paper header .form-sub{font-size:13px;letter-spacing:0;color:#7a7366;text-transform:none}
