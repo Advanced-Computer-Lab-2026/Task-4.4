@@ -77,9 +77,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 .match-dialog::backdrop { background: #252c3299; }
 
-/* Optional item photos, with the same reserved space on reports without uploads. */
-.photo-placeholder, .report-photo { width: 100%; height: 150px; border-radius: 6px; background: #f1eddf; }
-.photo-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; margin-top: 14px; border: 1px dashed #b9ac8b; color: #8b7b58; font-size: 11px; }
+/* Optional item photos: cards without images reserve no gallery space. */
+.report-photo { width: 100%; height: 150px; border-radius: 6px; background: #f1eddf; }
 .report-photos { margin-top: 14px; min-width: 0; }
 .report-photo { display: block; border: 1px solid #d8cfb8; object-fit: contain; }
 .photo-navigation { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 7px; color: #756342; font-size: 11px; }

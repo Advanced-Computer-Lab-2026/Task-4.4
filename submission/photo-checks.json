@@ -1,7 +1,6 @@
 {
   "date": "2026-11-05",
   "checks": [
-    "Existing reports without photos render placeholders",
     "Upload control allows selecting multiple photos together",
     "Two selected photos are prepared and previewed",
     "An oversized batch is rejected without losing existing previews",
@@ -20,7 +19,6 @@
     "The uploader prevents additions when all five photo slots are filled",
     "All prepared image previews decode successfully",
     "Removing a photo re-enables the file picker",
-    "Photo uploader and previews fit a phone viewport",
-    "Reset removes test reports and restores legacy placeholders"
+    "Photo uploader and previews fit a phone viewport"
   ]
 }

@@ -4,11 +4,12 @@ import {findPossibleMatches} from './matching.js';
 import {paginateReports} from './pagination.js';
 import ReportPhotos from './ReportPhotos.jsx';
 import PhotoUpload from './PhotoUpload.jsx';
+import {withExamplePhotos} from './examplePhotos.js';
 
 const STORE='acl-foundboard-v3';
 // Fictional campus locations for this standalone teaching demo.
 // A found report can exist before the item has been received by staff.
-const seed=[
+const seed=withExamplePhotos([
  {id:'f1',title:'Black backpack',category:'accessories',status:'lost',location:'Library - second floor',description:'Black backpack with a small red keychain. Left near the study desks.',owner:'you',created:'Oct 23',emoji:'🎒'},
  {id:'f2',title:'Dark backpack',category:'accessories',status:'found',location:'Library - main stairwell',description:'Found a dark backpack with a small red keychain near the library stairs.',owner:'other',created:'Oct 24',emoji:'🎒',collectionPoint:'Campus Security Desk',handoverStatus:'received'},
  {id:'f3',title:'Student ID card',category:'documents',status:'found',location:'Near Gate 3',description:'A student card was turned in. No personal details are published.',owner:'other',created:'Oct 24',emoji:'🪪',collectionPoint:'Student Services Office',handoverStatus:'received'},
@@ -22,11 +23,11 @@ const seed=[
  {id:'f11',title:'Calculator',category:'electronics',status:'found',location:'B2 study area',description:'Scientific calculator with a black cover, found on a desk.',owner:'you',created:'Oct 26',emoji:'🧮',collectionPoint:'Library Reception',handoverStatus:'received'},
  {id:'f12',title:'Canvas tote bag',category:'accessories',status:'lost',location:'Main campus bus stop',description:'Beige tote with green writing on one side.',owner:'other',created:'Oct 26',emoji:'👜'},
  {id:'f13',title:'USB flash drive',category:'electronics',status:'found',location:'Building A computer lab',description:'A small black flash drive was found beside a workstation.',owner:'other',created:'Oct 27',emoji:'💾',collectionPoint:'',handoverStatus:'reported'},
-];
+]);
 const categories=['all','electronics','clothing','documents','accessories','other'];
 const statuses=['lost','found','claimed'];
 const clean={title:'',category:'',status:'',location:'',description:'',photos:[]};
-function getSaved(){try{const s=JSON.parse(localStorage.getItem(STORE));return Array.isArray(s)?s:seed;}catch{return seed;}}
+function getSaved(){try{const s=JSON.parse(localStorage.getItem(STORE));return Array.isArray(s)?withExamplePhotos(s):seed;}catch{return seed;}}
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 function validate(f,arr,id){
  if(!f.title.trim()||f.title.trim().length<2)return 'Title must be at least 2 characters.';

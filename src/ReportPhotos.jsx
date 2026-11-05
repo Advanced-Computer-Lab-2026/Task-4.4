@@ -9,10 +9,10 @@ export function PhotoIcon() {
 
 export default function ReportPhotos({photos = [], title}) {
   const [selected, setSelected] = useState(0);
-  if (!photos.length) return <div className="photo-placeholder"><PhotoIcon /><span>No photos yet</span></div>;
+  if (!photos.length) return null;
   const index = Math.min(selected, photos.length - 1);
   return <div className="report-photos" role="group" aria-label={`Photos of ${title}`}>
-    <img className="report-photo" src={photos[index].dataUrl} alt={`${title} — photo ${index + 1} of ${photos.length}`} />
+    <img className="report-photo" src={photos[index].dataUrl || photos[index].src} alt={`${title} — photo ${index + 1} of ${photos.length}`} />
     {photos.length > 1 && <div className="photo-navigation">
       <button type="button" aria-label={`Previous photo of ${title}`} onClick={()=>setSelected((index - 1 + photos.length) % photos.length)}>←</button>
       <span role="status">Photo {index + 1} of {photos.length}</span>

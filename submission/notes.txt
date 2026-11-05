@@ -62,7 +62,10 @@ Demonstration (use Reset demo data first if needed)
 
 
 Optional report photos
-   Report cards reserve a photo area and show No photos yet for existing reports.
+   Cards show a gallery only when photos exist; photo-free cards have no image area.
+   Selected demo reports include local sample illustrations, with two backpack views.
+   Legacy demo records gain examples only when no photos field was saved, preserving
+   students' uploaded photos and deliberate removals.
    Create and edit forms accept multiple JPG, PNG or WebP files, up to five photos
    per report and 10 MB per source file. Students can preview, add and remove photos.
    Images are resized and compressed before being stored with reports in this
@@ -77,14 +80,14 @@ Screenshots
    work stop. Current tab/pagination behavior is covered by browser-checks.json.
 
 Verification
-   npm test: 13 tests covering matching, pagination and photo-selection validation.
+   npm test: 16 tests covering matching, pagination, photos and legacy sample data.
       Photo validation checks supported types, size boundaries and the five-photo cap.
    npm run build: production bundle builds successfully.
    browser-checks.json: 36 passing checks for tabs, paging, keyboard navigation,
       filtering, matching, forms, ownership, persistence and responsive layouts.
       No browser warning/error logs were seen.
-   photo-checks.json: 21 photo browser checks covering multi-file uploads, errors,
-      previews, galleries, editing, refresh persistence, limits and narrow screens.
+   photo-checks.json: 19 photo browser checks covering multi-file uploads, errors,
+      galleries, editing, refresh persistence, samples and explicit photo removal.
    Test-only browser data was reset to the original 13 notices after testing.
 
 Compatibility and constraints

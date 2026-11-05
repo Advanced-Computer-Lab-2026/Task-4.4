@@ -37,7 +37,7 @@ export default function PhotoUpload({photos, onChange, busy, onBusyChange}) {
     </div>
     <p id="photo-upload-status" role="status">{busy ? 'Preparing photos…' : `${photos.length} of ${MAX_PHOTOS} photos added`}</p>
     {!!photos.length && <ul className="photo-previews">{photos.map((photo,index)=><li key={photo.id}>
-      <img src={photo.dataUrl} alt={`Selected photo ${index + 1}: ${photo.name}`} />
+      <img src={photo.dataUrl || photo.src} alt={`Selected photo ${index + 1}: ${photo.name}`} />
       <span title={photo.name}>{photo.name}</span>
       <button type="button" disabled={busy} aria-label={`Remove photo ${index + 1}: ${photo.name}`}
         onClick={()=>{onChange(photos.filter(item=>item.id!==photo.id));setError('');}}>Remove</button>
