@@ -3,3 +3,22 @@
 
 /* The deliberately simple notice cards only display receipt metadata; they do not implement an ownership-claim workflow. */
 .handover-note{font-size:10px;line-height:1.45;color:#746e61;margin:2px 0 10px;padding-top:4px;}
+
+/* Fix 1: specific, visible form errors */
+.form-error strong{display:block;margin-bottom:3px}
+.form-paper input.invalid,.form-paper select.invalid{border-color:#ba523e;background:#fff8f6;outline:2px solid #ba523e33}
+/* Fix 2: live filtering, no Apply button */
+.result-count{font-size:12px;font-weight:700;color:#5c5a52;margin:0 0 12px}
+.filterbox label small{font-weight:400;color:#9a968b}
+.filterbuttons button:first-child{background:#f7d66d;border-color:#f2d471}
+.filterbuttons button:disabled{background:#f3f2ec;border-color:#e2e0d6;color:#a8a59b;cursor:not-allowed}
+/* Fix 3: card colour follows status; handover state is a clear badge */
+.sticky,.sticky:nth-child(2n),.sticky:nth-child(3n){transform:none}
+.sticky.lost{background:#fff9df;border-color:#efe5c2}
+.sticky.found{background:#e6f5ea;border-color:#b7dcc3}
+.sticky.claimed{background:#e8eef9;border-color:#c3d0ea}
+.sticky p{font-size:12px}
+.handover-note{display:inline-block;font-size:12px;font-weight:700;padding:5px 9px;border-radius:4px}
+.handover-note.confirmed{background:#cdebd6;color:#1f5a35}
+.handover-note.unconfirmed{background:#fde9c4;color:#7a4b0c}
+.handover-note.released{background:#d5def3;color:#2e4378}
