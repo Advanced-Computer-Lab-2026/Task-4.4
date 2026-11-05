@@ -13,7 +13,7 @@ The terminal prints **one local URL**. Open that link in your normal external br
 
 ## Functional brief
 
-Users browse, search and filter item reports, create reports, and edit only their own reports. Reports have lost, found and claimed states. The same title at the same location may not be reported twice. Some found items have been handed to fictional campus collection points; others have only been reported. A reported item is not automatically confirmed as being held by staff.
+Users browse, search and filter item reports, create reports, edit and delete only their own reports, and reset the demo records. Reports have lost, found and claimed states. The same title at the same location may not be reported twice. Some found items have been handed to fictional campus collection points; others have only been reported. A reported item is not automatically confirmed as being held by staff.
 
 ### Fields from the prior lab
 
