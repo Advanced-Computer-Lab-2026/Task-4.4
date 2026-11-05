@@ -21,14 +21,35 @@ const seed=[
 const categories=['all','electronics','clothing','documents','accessories','other'];
 const statuses=['lost','found','claimed'];
 const clean={title:'',category:'',status:'',location:'',description:''};
+// Places where finders hand items in. Staff verify ownership here before release.
+const collectionPoints=['Campus Security Desk','Student Services Office','Library Reception'];
+// Word-by-word search: every word must appear somewhere in the item's text.
+function matchesSearch(x,q){
+ const words=q.toLowerCase().split(/\s+/).filter(Boolean);
+ if(!words.length)return true;
+ const text=`${x.title} ${x.location||''} ${x.description||''} ${x.category}`.toLowerCase();
+ return words.every(w=>text.includes(w));
+}
+// Custody state shown on a card. A 'reported' item is NOT confirmed as held.
+function custody(item){
+ if(item.status==='lost')return null;
+ if(item.status==='claimed'||item.handoverStatus==='released')return {kind:'returned',badge:'Returned to owner'};
+ if(item.handoverStatus==='received'&&item.collectionPoint)return {kind:'held',badge:`✓ Held at ${item.collectionPoint}`,help:`To claim it, bring proof of ownership (e.g. a description or photo) to ${item.collectionPoint}.`};
+ return {kind:'pending',badge:'⚠ Not yet handed in',help:'Staff have not confirmed this item. The finder should hand it to a collection point.'};
+}
 function getSaved(){try{const s=JSON.parse(localStorage.getItem(STORE));return Array.isArray(s)?s:seed;}catch{return seed;}}
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 function validate(f,arr,id){
- if(!f.title.trim()||f.title.trim().length<2)return 'Title must be at least 2 characters.';
- if(!categories.slice(1).includes(f.category))return 'Choose a category.';
- if(!statuses.includes(f.status))return 'Choose lost, found or claimed.';
- if(arr.some(r=>r.id!==id&&r.title.toLowerCase()===f.title.trim().toLowerCase()&&(r.location||'').toLowerCase()===(f.location||'').trim().toLowerCase()))return 'An item with the same title has already been reported at this location.';
- return '';
+ const e={};
+ const title=f.title.trim();
+ if(title.length<2)e.title='Title must be at least 2 characters.';
+ if(!statuses.includes(f.status))e.status='Choose lost, found or claimed.';
+ if(!categories.slice(1).includes(f.category))e.category='Choose a category.';
+ if(!e.title){
+  const dup=arr.find(r=>r.id!==id&&r.title.toLowerCase()===title.toLowerCase()&&(r.location||'').toLowerCase()===(f.location||'').trim().toLowerCase());
+  if(dup)e.duplicate=dup;
+ }
+ return e;
 }
 export default function App(){
  const [items,setItems]=useState(getSaved);
@@ -38,22 +59,69 @@ export default function App(){
  const [filterStatus,setFilterStatus]=useState('all');
  const [current,setCurrent]=useState(null);
  const [form,setForm]=useState(clean);
- const [error,setError]=useState('');
+ const [errors,setErrors]=useState({});
  const [message,setMessage]=useState('');
  const [openMenu,setOpenMenu]=useState(null);
  useEffect(()=>localStorage.setItem(STORE,JSON.stringify(items)),[items]);
- const filtered=useMemo(()=>items.filter(x=>(cat==='all'||x.category===cat)&&(filterStatus==='all'||x.status===filterStatus)&&`${x.title} ${x.location} ${x.description}`.toLowerCase().includes(q.toLowerCase())),[items,q,cat,filterStatus]);
- function create(){setCurrent(null);setForm({...clean});setError('');setPage('form');}
- function edit(row){if(row.owner!=='you')return;setCurrent(row.id);setForm({title:row.title,category:row.category,status:row.status,location:row.location,description:row.description});setOpenMenu(null);setError('');setPage('form');}
- function submit(e){e.preventDefault();const v=validate(form,items,current);if(v){setError('Please review your entries.');return;}const d={...form,title:form.title.trim(),location:form.location.trim(),description:form.description.trim(),owner:'you',created:'Today',emoji:current?items.find(x=>x.id===current)?.emoji:'📌',...(current?{}:{collectionPoint:'',handoverStatus:'reported'})};
+ const filtered=useMemo(()=>items.filter(x=>(cat==='all'||x.category===cat)&&(filterStatus==='all'||x.status===filterStatus)&&matchesSearch(x,q)),[items,q,cat,filterStatus]);
+ function create(){setCurrent(null);setForm({...clean});setErrors({});setPage('form');}
+ function edit(row){if(row.owner!=='you')return;setCurrent(row.id);setForm({title:row.title,category:row.category,status:row.status,location:row.location,description:row.description});setOpenMenu(null);setErrors({});setPage('form');}
+ const errorCount=Object.keys(errors).length;
+function setField(name,value){
+ setForm(s=>({...s,[name]:value}));
+ setErrors(er=>{const n={...er};delete n[name];if(name==='title'||name==='location')delete n.duplicate;return n;});
+}
+function viewExisting(r){setErrors({});setCurrent(null);setQ(r.title);setCat('all');setFilterStatus('all');setPage('board');}
+function submit(e){e.preventDefault();const v=validate(form,items,current);if(Object.keys(v).length){setErrors(v);const first=v.title||v.duplicate?'title':v.status?'status':'category';document.getElementById('field-'+first)?.focus();return;}const d={...form,title:form.title.trim(),location:form.location.trim(),description:form.description.trim(),owner:'you',created:'Today',emoji:current?items.find(x=>x.id===current)?.emoji:'📌',...(current?{}:{collectionPoint:'',handoverStatus:'reported'})};
  if(current){setItems(items.map(x=>x.id===current?{...x,...d}:x));setMessage('Report updated.');}else{setItems([{id:`f-${Date.now()}`,...d},...items]);setMessage('Your report has been posted.');}setPage('board');setCurrent(null);}
  function reset(){setItems(seed);setPage('board');setQ('');setCat('all');setFilterStatus('all');setMessage('Example reports restored.');}
  return <div className="notice-app"><header className="header"><div className="headline"><span className="sun">✺</span><button onClick={()=>setPage('board')} className="wordmark">FOUND<span>on campus</span></button><p>Community noticeboard</p></div><div className="header-links"><button onClick={()=>setPage('board')}>Noticeboard</button><button onClick={()=>{setFilterStatus('lost');setPage('board')}}>Missing items</button><button onClick={()=>{setFilterStatus('found');setPage('board')}}>Recently found</button></div><button className="report-button" onClick={create}>+ Post a report</button></header>
   <div className="ruleline"><span>SEARCH • DISCOVER • REUNITE</span><span>Helping lost things find their way back.</span></div>
-  {page==='board'?<main className="workspace"><aside className="filters"><p className="kicker">YOUR NOTICEBOARD</p><h1>Lost something?<br/><em>You're in the right place.</em></h1><p className="intro">Browse what the campus community has shared or post what you've lost or found.</p><div className="filterbox"><h3>Browse reports</h3><label>Search items<input value={q} onChange={e=>setQ(e.target.value)} placeholder="What are you looking for?"/></label><label>Item category<select value={cat} onChange={e=>setCat(e.target.value)}><option value="all">All categories</option>{categories.slice(1).map(c=><option key={c} value={c}>{cap(c)}</option>)}</select></label><label>Report status<select value={filterStatus} onChange={e=>setFilterStatus(e.target.value)}><option value="all">All statuses</option>{statuses.map(s=><option key={s}>{s}</option>)}</select></label><div className="filterbuttons"><button onClick={()=>setMessage(`${filtered.length} reports shown.`)}>Apply</button><button onClick={()=>{setQ('');setCat('all');setFilterStatus('all')}}>Clear</button></div></div><div className="side-message"><span>📍</span><strong>Lost or found something?</strong><p>Every report gets us a little closer.</p><button onClick={create}>Share your report →</button></div><button className="reset" onClick={reset}>Reset demo data</button></aside>
+  {page==='board'?<main className="workspace"><aside className="filters"><p className="kicker">YOUR NOTICEBOARD</p><h1>Lost something?<br/><em>You're in the right place.</em></h1><p className="intro">Browse what the campus community has shared or post what you've lost or found.</p><div className="filterbox"><h3>Browse reports</h3><label>Search items<input value={q} onChange={e=>setQ(e.target.value)} placeholder="e.g. blue bottle"/></label><label>Item category<select value={cat} onChange={e=>setCat(e.target.value)}><option value="all">All categories</option>{categories.slice(1).map(c=><option key={c} value={c}>{cap(c)}</option>)}</select></label><label>Report status<select value={filterStatus} onChange={e=>setFilterStatus(e.target.value)}><option value="all">All statuses</option>{statuses.map(s=><option key={s}>{s}</option>)}</select></label><div className="filterbuttons"><button onClick={()=>{setQ('');setCat('all');setFilterStatus('all')}}>Clear</button></div></div><div className="side-message"><span>📍</span><strong>Lost or found something?</strong><p>Every report gets us a little closer.</p><button onClick={create}>Share your report →</button></div><button className="reset" onClick={reset}>Reset demo data</button></aside>
    <section className="board"><div className="board-top"><div><p className="kicker">CAMPUS COMMUNITY</p><h2>Latest notices <span>({filtered.length})</span></h2></div><span className="time-note">Updated today</span></div>{message&&<div className="message" role="status">{message}<button onClick={()=>setMessage('')}>✕</button></div>}
-    <div className="board-grid">{[{key:'lost',title:'LOST',sub:'Searching for these things',icon:'↗'},{key:'found',title:'FOUND',sub:'Looking for the owners',icon:'⌁'},{key:'claimed',title:'CLAIMED',sub:'Back where they belong',icon:'✓'}].map(col=><div className="board-column" key={col.key}><div className="column-head"><span className={'col-icon '+col.key}>{col.icon}</span><div><strong>{col.title}</strong><small>{col.sub}</small></div><span className="col-count">{filtered.filter(r=>r.status===col.key).length}</span></div><div className="sticky-list">{filtered.filter(r=>r.status===col.key).map((item,i)=><article className="sticky" key={item.id}><div className="sticky-top"><span>{item.category}</span><div className="menu-holder"><button className="menu" onClick={()=>setOpenMenu(openMenu===item.id?null:item.id)} aria-label={`Actions for ${item.title}`}>···</button>{openMenu===item.id&&<div className="menu-popup">{item.owner==='you'?<button onClick={()=>edit(item)}>Edit your report</button>:<span>Reported by another student</span>}</div>}</div></div><div className="sticky-emoji">{item.emoji}</div><h3>{item.title}</h3><p>{item.description||'No additional description.'}</p>{item.status!=='lost'&&<div className="handover-note">{item.handoverStatus==='received'&&item.collectionPoint?`Received at ${item.collectionPoint}`:item.handoverStatus==='released'?'Collected by owner':'Reported found - not confirmed at a collection point'}</div>}<div className="sticky-bottom"><span>⌖ {item.location||'Location not provided'}</span><small>{item.created}</small></div></article>)}{filtered.every(x=>x.status!==col.key)&&<div className="empty-column">Nothing here yet</div>}</div></div>)}</div>
-   </section></main>:<main className="report-page"><div className="crumbs"><button onClick={()=>setPage('board')}>← Noticeboard</button><span>/</span><span>Report an item</span></div><div className="report-layout"><div className="report-intro"><span className="seal">✺</span><p className="kicker">HELP THE COMMUNITY</p><h1>{current?'Update your report':'Tell us what happened.'}</h1><p>Small details can help someone recognize their belongings.</p><div className="paper-note">Your report will appear on the public campus noticeboard with the details you provide.</div></div><section className="form-paper"><header><p>NEW NOTICE / FORM 01</p><h2>{current?'Edit report':'Report an item'}</h2></header><form onSubmit={submit}><label>Item title <b>*</b><input value={form.title} onChange={e=>setForm(s=>({...s,title:e.target.value}))} placeholder="e.g., Black backpack"/></label><label>Status <b>*</b><select value={form.status} onChange={e=>setForm(s=>({...s,status:e.target.value}))}><option value="">Choose one</option>{statuses.map(s=><option key={s} value={s}>{cap(s)}</option>)}</select></label><label>Category <b>*</b><select value={form.category} onChange={e=>setForm(s=>({...s,category:e.target.value}))}><option value="">Select item category</option>{categories.slice(1).map(s=><option key={s}>{s}</option>)}</select></label><label>Last known location<input value={form.location} onChange={e=>setForm(s=>({...s,location:e.target.value}))} placeholder="Location (optional)"/></label><label>More details<textarea rows="6" value={form.description} onChange={e=>setForm(s=>({...s,description:e.target.value}))} placeholder="Describe your item"/></label>{error&&<div className="form-error" role="alert">{error}</div>}<div className="form-actions"><button type="button" onClick={()=>setPage('board')}>Go back</button><button className="report-button" type="submit">{current?'Save report':'Publish notice'}</button></div></form></section></div></main>}
+    <div className="board-grid">{[{key:'lost',title:'LOST',sub:'Searching for these things',icon:'↗'},{key:'found',title:'FOUND',sub:'Looking for the owners',icon:'⌁'},{key:'claimed',title:'CLAIMED',sub:'Back where they belong',icon:'✓'}].map(col=><div className="board-column" key={col.key}><div className="column-head"><span className={'col-icon '+col.key}>{col.icon}</span><div><strong>{col.title}</strong><small>{col.sub}</small></div><span className="col-count">{filterStatus!=='all'&&filterStatus!==col.key?'–':filtered.filter(r=>r.status===col.key).length}</span></div><div className="sticky-list">{filtered.filter(r=>r.status===col.key).map((item,i)=><article className={'sticky '+item.status} key={item.id}><div className="sticky-top"><div className="sticky-tags"><span className={'status-tag '+item.status}>{item.status.toUpperCase()}</span><span>{item.category}</span>{item.owner==='you'&&<span className="own-tag">Your report</span>}</div><div className="menu-holder"><button className="menu" onClick={()=>setOpenMenu(openMenu===item.id?null:item.id)} aria-label={`Actions for ${item.title}`}>···</button>{openMenu===item.id&&<div className="menu-popup">{item.owner==='you'?<button onClick={()=>edit(item)}>Edit your report</button>:<span>Reported by another student</span>}</div>}</div></div><div className="sticky-emoji">{item.emoji}</div><h3>{item.title}</h3><p>{item.description||'No additional description.'}</p>{(()=>{const c=custody(item);return c&&<div className={'handover '+c.kind}><span className="handover-badge">{c.badge}</span>{c.help&&<span className="handover-help">{c.help}</span>}</div>})()}<div className="sticky-bottom"><span>⌖ {item.location||'Location not provided'}</span><small>{item.created}</small></div></article>)}{filtered.every(x=>x.status!==col.key)&&(filterStatus!=='all'&&filterStatus!==col.key
+      ?<div className="empty-column hidden">Hidden by your filters<button onClick={()=>setFilterStatus('all')}>Show all statuses</button></div>
+      :<div className="empty-column">{q.trim()?'No matches — try fewer words':cat!=='all'?`No ${cat} items here`:'Nothing here yet'}</div>)}</div></div>)}</div>
+   </section></main>:<main className="report-page"><div className="crumbs"><button onClick={()=>setPage('board')}>← Noticeboard</button><span>/</span><span>Report an item</span></div><div className="report-layout"><div className="report-intro"><span className="seal">✺</span><p className="kicker">HELP THE COMMUNITY</p><h1>{current?'Update your report':'Tell us what happened.'}</h1><p>Small details can help someone recognize their belongings.</p><div className="paper-note">Your report will appear on the public campus noticeboard with the details you provide.</div></div><section className="form-paper"><header><p>NEW NOTICE / FORM 01</p><h2>{current?'Edit report':'Report an item'}</h2></header>
+   <form onSubmit={submit}>
+ <label>Item title <b>*</b>
+  <input id="field-title" value={form.title} onChange={e=>setField('title',e.target.value)} placeholder="e.g., Black backpack" aria-invalid={!!(errors.title||errors.duplicate)} aria-describedby={errors.title?'err-title':errors.duplicate?'err-duplicate':undefined}/>
+  {errors.title&&<span className="field-error" id="err-title">{errors.title}</span>}
+ </label>
+ <label>Status <b>*</b>
+  <select id="field-status" value={form.status} onChange={e=>setField('status',e.target.value)} aria-invalid={!!errors.status} aria-describedby={errors.status?'err-status':undefined}>
+   <option value="">Choose one</option>{statuses.map(s=><option key={s} value={s}>{cap(s)}</option>)}
+  </select>
+  {errors.status&&<span className="field-error" id="err-status">{errors.status}</span>}
+ </label>
+ {form.status==='found'&&<div className="info-note" role="note">
+  <strong>Found something? Please hand it in.</strong>
+  <span>Take the item to one of these collection points. Staff verify ownership there before releasing it:</span>
+  <ul>{collectionPoints.map(p=><li key={p}>{p}</li>)}</ul>
+  <span>Until staff receive it, your notice will show “Not yet handed in”.</span>
+ </div>}
+ <label>Category <b>*</b>
+  <select id="field-category" value={form.category} onChange={e=>setField('category',e.target.value)} aria-invalid={!!errors.category} aria-describedby={errors.category?'err-category':undefined}>
+   <option value="">Select item category</option>{categories.slice(1).map(s=><option key={s}>{s}</option>)}
+  </select>
+  {errors.category&&<span className="field-error" id="err-category">{errors.category}</span>}
+ </label>
+ <label>Last known location
+  <input id="field-location" value={form.location} onChange={e=>setField('location',e.target.value)} placeholder="Location (optional)" aria-invalid={!!errors.duplicate} aria-describedby={errors.duplicate?'err-duplicate':undefined}/>
+ </label>
+ {errors.duplicate&&<div className="field-error duplicate" id="err-duplicate">
+  <strong>An item with the same title has already been reported at this location.</strong>
+  <span>“{errors.duplicate.title}”: {cap(errors.duplicate.status)}, {errors.duplicate.location||'no location given'}, posted {errors.duplicate.created}.</span>
+  {errors.duplicate.owner==='you'
+   ?<button type="button" onClick={()=>edit(errors.duplicate)}>Edit your existing report instead</button>
+   :<button type="button" onClick={()=>viewExisting(errors.duplicate)}>View it on the noticeboard</button>}
+  <span>Or change the title or location if this is a different item.</span>
+ </div>}
+ <label>More details<textarea rows="6" value={form.description} onChange={e=>setForm(s=>({...s,description:e.target.value}))} placeholder="Describe your item"/></label>
+ {errorCount>0&&<div className="form-error" role="alert">Please fix the {errorCount===1?'issue':`${errorCount} issues`} highlighted above.</div>}
+ <div className="form-actions"><button type="button" onClick={()=>setPage('board')}>Go back</button><button className="report-button" type="submit">{current?'Save report':'Publish notice'}</button></div>
+</form>
+   </section></div></main>}
   <footer className="pagefooter"><span>FOUND / Campus noticeboard</span><span>Community project • Demo only</span></footer>
  </div>;
 }
